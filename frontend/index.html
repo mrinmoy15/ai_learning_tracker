@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Mrinmoy — AI Training Tracker</title>
+<title>Mrinmoy — AI/ML Complete Training Tracker</title>
 <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,500;1,9..144,300&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
 :root {
@@ -13,17 +13,25 @@
   --accent: #c8f080; --blue: #7eb8f7; --amber: #f5c842;
   --coral: #f07858; --purple: #b09cf0; --teal: #58d4b0;
   --cert-color: #58d4b0; --proj-color: #f5c842; --gcp-color: #b09cf0;
-  --mcp-color: #f07858; --local-color: #7eb8f7;
+  --mcp-color: #f07858; --local-color: #7eb8f7; --lg-color: #a78bfa;
 }
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 body { background: var(--bg); color: var(--text); font-family: 'DM Sans', sans-serif; font-weight: 300; line-height: 1.6; min-height: 100vh; }
 ::selection { background: rgba(200,240,128,0.2); }
 
-/* ── Course tabs ── */
-.course-nav { display: flex; gap: 0; border-bottom: 1px solid var(--border); }
-.course-tab { font-family: 'DM Mono', monospace; font-size: 11px; letter-spacing: .06em; padding: 1rem 1.75rem; cursor: pointer; color: var(--muted); border-bottom: 2px solid transparent; transition: all .15s; background: transparent; border-top: none; border-left: none; border-right: none; }
+/* ── Main tabs ── */
+.main-tab-nav { display: flex; gap: 0; border-bottom: 1px solid var(--border); background: var(--bg); padding: 0 1rem; overflow-x: auto; }
+.main-tab { font-family: 'DM Mono', monospace; font-size: 11px; letter-spacing: .06em; padding: 1rem 1.5rem; cursor: pointer; color: var(--muted); border-bottom: 2px solid transparent; margin-bottom: -1px; transition: all .15s; background: transparent; border-top: none; border-left: none; border-right: none; white-space: nowrap; }
+.main-tab:hover { color: var(--text); }
+.main-tab.active { color: var(--accent); border-bottom-color: var(--accent); }
+.main-panel { display: none; }
+.main-panel.active { display: block; }
+
+/* ── Course sub-tabs ── */
+.course-nav { display: flex; gap: 0; border-bottom: 1px solid var(--border); background: var(--bg2); padding: 0 1rem; }
+.course-tab { font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: .06em; padding: .75rem 1.25rem; cursor: pointer; color: var(--muted); border-bottom: 2px solid transparent; margin-bottom: -1px; transition: all .15s; background: transparent; border-top: none; border-left: none; border-right: none; white-space: nowrap; }
 .course-tab:hover { color: var(--text); }
-.course-tab.active { color: var(--accent); border-bottom-color: var(--accent); }
+.course-tab.active { color: var(--blue); border-bottom-color: var(--blue); }
 .course-panel { display: none; }
 .course-panel.active { display: block; }
 
@@ -36,7 +44,7 @@ body { background: var(--bg); color: var(--text); font-family: 'DM Sans', sans-s
 .dot-sep { color: var(--muted2); font-size: 10px; }
 h1 { font-family: 'Fraunces', serif; font-weight: 300; font-size: clamp(1.6rem, 3.5vw, 2.4rem); line-height: 1.15; letter-spacing: -0.02em; }
 h1 em { font-style: italic; color: var(--accent); }
-.subtitle { font-size: 13px; color: var(--muted); margin-top: 0.4rem; max-width: 520px; }
+.subtitle { font-size: 13px; color: var(--muted); margin-top: 0.4rem; max-width: 580px; }
 .meta-pills { display: flex; gap: 8px; flex-wrap: wrap; align-items: flex-start; }
 .pill { font-family: 'DM Mono', monospace; font-size: 10px; padding: 4px 11px; border-radius: 20px; border: 1px solid; white-space: nowrap; letter-spacing: .04em; }
 .pill-green { border-color: rgba(200,240,128,.3); color: var(--accent); background: rgba(200,240,128,.06); }
@@ -44,6 +52,7 @@ h1 em { font-style: italic; color: var(--accent); }
 .pill-amber { border-color: rgba(245,200,66,.3);  color: var(--amber);  background: rgba(245,200,66,.06); }
 .pill-coral { border-color: rgba(240,120,88,.3);  color: var(--coral);  background: rgba(240,120,88,.06); }
 .pill-teal  { border-color: rgba(88,212,176,.3);  color: var(--teal);   background: rgba(88,212,176,.06); }
+.pill-purple{ border-color: rgba(167,139,250,.3); color: var(--lg-color); background: rgba(167,139,250,.06); }
 
 /* ── Progress ── */
 .progress-section { padding: 1.25rem 2.5rem; border-bottom: 1px solid var(--border); display: flex; align-items: center; gap: 1.5rem; flex-wrap: wrap; }
@@ -91,6 +100,7 @@ h1 em { font-style: italic; color: var(--accent); }
 .tag-gcp   { color: var(--gcp-color);   border: 1px solid rgba(176,156,240,.25); background: rgba(176,156,240,.07); }
 .tag-mcp   { color: var(--mcp-color);   border: 1px solid rgba(240,120,88,.25);  background: rgba(240,120,88,.07); }
 .tag-local { color: var(--local-color); border: 1px solid rgba(126,184,247,.25); background: rgba(126,184,247,.07); }
+.tag-lg    { color: var(--lg-color);    border: 1px solid rgba(167,139,250,.25); background: rgba(167,139,250,.07); }
 .tag-week  { color: var(--muted);       border: 1px solid var(--border); background: transparent; }
 .expand-icon { width: 18px; height: 18px; border-radius: 4px; border: 1px solid var(--border); display: flex; align-items: center; justify-content: center; flex-shrink: 0; transition: transform .2s, border-color .2s; color: var(--muted2); font-size: 12px; line-height: 1; }
 .module.open .expand-icon { transform: rotate(45deg); border-color: var(--border2); }
@@ -111,8 +121,14 @@ h1 em { font-style: italic; color: var(--accent); }
 .cert-box { background: var(--bg3); border: 1px solid var(--border); border-left: 2px solid var(--cert-color); border-radius: 8px; padding: .7rem .9rem; }
 .cert-eyebrow { font-family: 'DM Mono', monospace; font-size: 9px; letter-spacing: .1em; text-transform: uppercase; color: var(--cert-color); margin-bottom: 4px; opacity: .8; }
 .cert-text { font-size: 12px; color: var(--muted); line-height: 1.55; }
+.mcp-box { background: var(--bg3); border: 1px solid var(--border); border-left: 2px solid var(--mcp-color); border-radius: 8px; padding: .7rem .9rem; margin-bottom: .7rem; }
+.mcp-eyebrow { font-family: 'DM Mono', monospace; font-size: 9px; letter-spacing: .1em; text-transform: uppercase; color: var(--mcp-color); margin-bottom: 4px; opacity: .8; }
+.mcp-text { font-size: 12px; color: var(--muted); line-height: 1.55; }
+.lg-box { background: var(--bg3); border: 1px solid var(--border); border-left: 2px solid var(--lg-color); border-radius: 8px; padding: .7rem .9rem; margin-bottom: .7rem; }
+.lg-eyebrow { font-family: 'DM Mono', monospace; font-size: 9px; letter-spacing: .1em; text-transform: uppercase; color: var(--lg-color); margin-bottom: 4px; opacity: .8; }
+.lg-text { font-size: 12px; color: var(--muted); line-height: 1.55; }
 
-/* ── Cert card special styles ── */
+/* ── Cert card ── */
 .module.cert-item { border-color: rgba(88,212,176,.2); background: linear-gradient(135deg,rgba(88,212,176,.04) 0%,rgba(126,184,247,.03) 100%); }
 .module.cert-item:hover { border-color: rgba(88,212,176,.4); }
 .module.cert-item.completed { border-color: rgba(88,212,176,.5); background: rgba(88,212,176,.06); }
@@ -130,77 +146,49 @@ h1 em { font-style: italic; color: var(--accent); }
 .cert-ach-title { font-size: 13px; font-weight: 500; color: var(--text); margin-bottom: 3px; }
 .cert-ach-desc { font-size: 12px; color: var(--muted); line-height: 1.55; }
 
-/* ── Course 2 special styles ── */
-.module.c2-item { border-color: rgba(126,184,247,.15); }
-.module.c2-item:hover { border-color: rgba(126,184,247,.35); }
-.module.c2-item.completed { border-color: rgba(126,184,247,.4); background: rgba(126,184,247,.03); }
-.c2-phase-header .phase-title { color: var(--blue); }
-.c2-note { background: var(--bg3); border: 1px solid rgba(126,184,247,.2); border-left: 2px solid var(--local-color); border-radius: 8px; padding: .7rem .9rem; margin-bottom: .7rem; }
-.c2-note-label { font-family: 'DM Mono', monospace; font-size: 9px; letter-spacing: .1em; text-transform: uppercase; color: var(--local-color); margin-bottom: 4px; opacity: .8; }
-.c2-note-text { font-size: 12px; color: var(--muted); line-height: 1.55; }
+/* ── Course 3 (local LLMs) ── */
+.module.c3-item { border-color: rgba(126,184,247,.15); }
+.module.c3-item:hover { border-color: rgba(126,184,247,.35); }
+.module.c3-item.completed { border-color: rgba(126,184,247,.4); background: rgba(126,184,247,.03); }
+.c3-phase-header .phase-title { color: var(--blue); }
+.c3-note { background: var(--bg3); border: 1px solid rgba(126,184,247,.2); border-left: 2px solid var(--local-color); border-radius: 8px; padding: .7rem .9rem; margin-bottom: .7rem; }
+.c3-note-label { font-family: 'DM Mono', monospace; font-size: 9px; letter-spacing: .1em; text-transform: uppercase; color: var(--local-color); margin-bottom: 4px; opacity: .8; }
+.c3-note-text { font-size: 12px; color: var(--muted); line-height: 1.55; }
+
+/* ── Course 2 (LangGraph) ── */
+.module.lg-item { border-color: rgba(167,139,250,.15); }
+.module.lg-item:hover { border-color: rgba(167,139,250,.35); }
+.module.lg-item.completed { border-color: rgba(167,139,250,.4); background: rgba(167,139,250,.03); }
+.lg-phase-header .phase-title { color: var(--lg-color); }
+
+/* ── Capstone tab ── */
+.module.cap-item { border-color: rgba(245,200,66,.15); }
+.module.cap-item:hover { border-color: rgba(245,200,66,.35); }
+.module.cap-item.completed { border-color: rgba(245,200,66,.4); background: rgba(245,200,66,.03); }
+.cap-phase-header .phase-title { color: var(--amber); }
+
+/* ── Coming soon placeholder ── */
+.coming-soon { padding: 5rem 2.5rem; text-align: center; }
+.coming-soon-icon { font-size: 2.5rem; margin-bottom: 1rem; opacity: .3; }
+.coming-soon-title { font-family: 'Fraunces', serif; font-weight: 300; font-size: 1.4rem; color: var(--text); margin-bottom: .5rem; }
+.coming-soon-title em { font-style: italic; color: var(--accent); }
+.coming-soon-sub { font-size: 13px; color: var(--muted); max-width: 400px; margin: 0 auto; line-height: 1.7; }
+.coming-soon-pills { display: flex; gap: 8px; justify-content: center; flex-wrap: wrap; margin-top: 1.5rem; }
 
 /* ── Footer ── */
 .footer { padding: 1.25rem 2.5rem; border-top: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1rem; }
 .footer-note { font-family: 'DM Mono', monospace; font-size: 10px; color: var(--muted2); }
 .reset-btn { font-family: 'DM Mono', monospace; font-size: 10px; color: var(--muted); background: transparent; border: 1px solid var(--border); padding: 5px 12px; border-radius: 6px; cursor: pointer; letter-spacing: .04em; transition: border-color .15s, color .15s; }
-.reset-btn:hover { border-color: var(--border2); color: var(--text); }
+.reset-btn:hover { border-color: var(--coral); color: var(--coral); }
+.save-btn { font-family: 'DM Mono', monospace; font-size: 10px; font-weight: 500; color: var(--bg); background: var(--muted2); border: 1px solid var(--muted2); padding: 5px 14px; border-radius: 6px; cursor: pointer; letter-spacing: .04em; transition: all .15s; }
+.save-btn.has-changes { background: var(--accent); border-color: var(--accent); color: var(--bg); }
+.save-btn.has-changes:hover { opacity: .85; }
+.save-btn:disabled { opacity: .6; cursor: default; }
 @media print { body { background:#fff; color:#111; } .module-detail { display: block !important; } }
-
-/* ── MCP box ── */
-.mcp-box { background: var(--bg3); border: 1px solid var(--border); border-left: 2px solid var(--mcp-color); border-radius: 8px; padding: .7rem .9rem; margin-bottom: .7rem; }
-.mcp-eyebrow { font-family: 'DM Mono', monospace; font-size: 9px; letter-spacing: .1em; text-transform: uppercase; color: var(--mcp-color); margin-bottom: 4px; opacity: .8; }
-.mcp-text { font-size: 12px; color: var(--muted); line-height: 1.55; }
-
-/* ── Auth banner ── */
-.auth-banner{display:flex;align-items:center;justify-content:space-between;padding:.75rem 2.5rem;border-bottom:1px solid var(--border);flex-wrap:wrap;gap:.75rem;background:var(--bg)}
-.auth-status{display:flex;align-items:center;gap:10px;font-size:12px;color:var(--muted)}
-.user-avatar{width:28px;height:28px;border-radius:50%;border:1px solid var(--border2)}
-.user-name{color:var(--text);font-weight:500}
-.auth-btn{font-family:'DM Mono',monospace;font-size:10px;padding:6px 14px;border-radius:6px;border:1px solid var(--border2);background:transparent;color:var(--text);cursor:pointer;letter-spacing:.04em;transition:all .15s}
-.auth-btn:hover{background:var(--bg3)}
-.auth-btn.sign-in{border-color:rgba(200,240,128,.4);color:var(--accent)}
-.auth-btn.sign-in:hover{background:rgba(200,240,128,.06)}
-.sync-indicator{font-family:'DM Mono',monospace;font-size:9px;letter-spacing:.06em}
-.sync-indicator.syncing{color:var(--amber)}
-.sync-indicator.synced{color:var(--teal)}
-.login-overlay{display:none;position:fixed;inset:0;background:rgba(14,15,17,.95);z-index:100;flex-direction:column;align-items:center;justify-content:center;gap:1.5rem}
-.login-overlay.visible{display:flex}
-.login-card{background:var(--bg2);border:1px solid var(--border2);border-radius:14px;padding:2.5rem 2rem;text-align:center;max-width:360px;width:90%}
-.login-title{font-family:'Fraunces',serif;font-weight:300;font-size:1.5rem;margin-bottom:.5rem}
-.login-title em{font-style:italic;color:var(--accent)}
-.login-sub{font-size:13px;color:var(--muted);margin-bottom:1.5rem;line-height:1.6}
-.google-btn{display:flex;align-items:center;justify-content:center;gap:10px;width:100%;padding:11px 20px;background:var(--bg3);border:1px solid var(--border2);border-radius:8px;color:var(--text);font-size:13px;font-weight:500;cursor:pointer;transition:all .15s;text-decoration:none}
-.google-btn:hover{border-color:rgba(200,240,128,.3);background:rgba(200,240,128,.04)}
-.login-skip{font-family:'DM Mono',monospace;font-size:10px;color:var(--muted2);cursor:pointer;margin-top:.75rem;letter-spacing:.04em}
-.login-skip:hover{color:var(--muted)}
-
 </style>
 </head>
 <body>
 
-<!-- ── Login overlay ──────────────────────────────────────────────────── -->
-<div class="login-overlay" id="login-overlay">
-  <div class="login-card">
-    <div class="login-title"><em>AI Training</em> Tracker</div>
-    <p class="login-sub">Sign in to save your progress across devices. Stored securely in a private database.</p>
-    <a href="#" class="google-btn" id="google-sign-in-btn">
-      <svg width="18" height="18" viewBox="0 0 18 18"><path fill="#4285F4" d="M17.64 9.2c0-.637-.057-1.251-.164-1.84H9v3.481h4.844c-.209 1.125-.843 2.078-1.796 2.716v2.259h2.908c1.702-1.567 2.684-3.875 2.684-6.615z"/><path fill="#34A853" d="M9 18c2.43 0 4.467-.806 5.956-2.18l-2.908-2.259c-.806.54-1.837.86-3.048.86-2.344 0-4.328-1.584-5.036-3.711H.957v2.332A8.997 8.997 0 0 0 9 18z"/><path fill="#FBBC05" d="M3.964 10.71A5.41 5.41 0 0 1 3.682 9c0-.593.102-1.17.282-1.71V4.958H.957A8.996 8.996 0 0 0 0 9c0 1.452.348 2.827.957 4.042l3.007-2.332z"/><path fill="#EA4335" d="M9 3.58c1.321 0 2.508.454 3.44 1.345l2.582-2.58C13.463.891 11.426 0 9 0A8.997 8.997 0 0 0 .957 4.958L3.964 7.29C4.672 5.163 6.656 3.58 9 3.58z"/></svg>
-      Continue with Google
-    </a>
-    <div class="login-skip" onclick="skipLogin()">continue without signing in (local only)</div>
-  </div>
-</div>
-
-<!-- ── Auth banner ────────────────────────────────────────────────────── -->
-<div class="auth-banner">
-  <div class="auth-status" id="auth-status">
-    <span style="color:var(--muted2)">Not signed in — progress saved locally only</span>
-  </div>
-  <div style="display:flex;align-items:center;gap:12px">
-    <span class="sync-indicator" id="sync-indicator"></span>
-    <button class="auth-btn sign-in" id="auth-action-btn" onclick="handleAuthAction()">Sign in with Google</button>
-  </div>
-</div>
 
 <!-- ══ GLOBAL HEADER ══════════════════════════════════════════════════════ -->
 <header class="header">
@@ -211,1229 +199,1429 @@ h1 em { font-style: italic; color: var(--accent); }
         <span class="dot-sep">·</span>
         <span class="eyebrow">2026</span>
       </div>
-      <h1>Full <em>AI Engineering</em><br>Training Plan</h1>
-      <p class="subtitle">Two courses · end-to-end curriculum from agentic systems to LLM internals · aligned to Cloud GenAI Engineer cert.</p>
+      <h1><em>AI/ML</em> Complete<br>Training Tracker</h1>
+      <p class="subtitle">Four learning tracks · end-to-end curriculum from agentic systems to deep learning internals · aligned to Cloud GenAI Engineer cert.</p>
     </div>
     <div class="meta-pills">
-      <span class="pill pill-green">Course 1 — Agentic AI</span>
-      <span class="pill pill-blue">Course 2 — Local LLMs</span>
+      <span class="pill pill-green">Generative & Agentic AI</span>
+      <span class="pill pill-purple">LangChain & LangGraph</span>
+      <span class="pill pill-blue">Local LLMs & Internals</span>
+      <span class="pill pill-amber">Capstone Projects</span>
       <span class="pill pill-teal">Cloud GenAI Engineer cert</span>
-      <span class="pill pill-amber">2 capstone projects</span>
     </div>
   </div>
 </header>
 
-<!-- ══ COURSE TABS ════════════════════════════════════════════════════════ -->
-<nav class="course-nav">
-  <button class="course-tab active" onclick="switchCourse('c1')">Course 1 — Agentic AI &amp; GCP</button>
-  <button class="course-tab" onclick="switchCourse('c2')">Course 2 — Local LLMs &amp; Internals</button>
+<!-- ══ MAIN TAB NAVIGATION ════════════════════════════════════════════════ -->
+<nav class="main-tab-nav">
+  <button type="button" class="main-tab active" data-tab="gen-ai">Generative &amp; Agentic AI</button>
+  <button type="button" class="main-tab" data-tab="deep-learning">Deep Learning &amp; Neural Networks</button>
+  <button type="button" class="main-tab" data-tab="ml-backend">AI/ML Backend Engineering</button>
+  <button type="button" class="main-tab" data-tab="capstone">Capstone Projects &amp; Certifications</button>
 </nav>
 
-<!-- ══════════════════════════════════════════════════════════════════════
-     COURSE 1
-════════════════════════════════════════════════════════════════════════ -->
-<div id="course-c1" class="course-panel active">
-
-<div class="progress-section">
-  <span class="progress-label">Course 1 progress</span>
-  <div class="progress-track"><div class="progress-fill" id="prog-fill-c1"></div></div>
-  <span class="progress-count"><span id="prog-done-c1">0</span> / 12 completed</span>
-</div>
-
-<div class="legend">
-  <span class="leg"><span class="leg-dot" style="background:var(--cert-color)"></span>cert domain</span>
-  <span class="leg"><span class="leg-dot" style="background:var(--proj-color)"></span>project</span>
-  <span class="leg"><span class="leg-dot" style="background:var(--gcp-color)"></span>GCP</span>
-  <span class="leg"><span class="leg-dot" style="background:var(--mcp-color)"></span>MCP / FastMCP</span>
-</div>
-
-<main class="main">
-
-<!-- PHASE 1 -->
-<div class="phase">
-  <div class="phase-header">
-    <span class="phase-num">PHASE 01</span>
-    <span class="phase-title">Foundations</span>
-    <span class="phase-weeks">Weeks 1–2</span>
-  </div>
-
-  <!-- Module 01 -->
-  <div class="module" id="mod-c1-01">
-    <div class="module-header" onclick="toggleModule('mod-c1-01')">
-      <label class="check-wrap" onclick="event.stopPropagation()">
-        <input type="checkbox" onchange="toggleDone('mod-c1-01',this.checked,'c1')">
-        <div class="check-box"><svg class="check-icon" viewBox="0 0 12 12" fill="none"><polyline points="1.5,6.5 4.5,9.5 10.5,3" stroke="var(--accent)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
-      </label>
-      <span class="module-num">01</span>
-      <div class="module-title-group">
-        <div class="module-title">Agentic AI fundamentals</div>
-        <div class="module-sub">Agent loop, ReAct, tool calling, memory types, ADK setup</div>
-      </div>
-      <div class="module-tags"><span class="tag tag-cert">cert: AI concepts</span><span class="tag tag-week">~30 hrs</span></div>
-      <div class="expand-icon">+</div>
-    </div>
-    <div class="module-detail">
-      <div class="detail-grid">
-        <div>
-          <div class="detail-col-label">What you'll learn</div>
-          <ul class="detail-list">
-            <li>Agent loop: perceive → think → act → observe</li>
-            <li>ReAct pattern: reasoning before acting</li>
-            <li>Tool calling mechanics — JSON schema, docstrings</li>
-            <li>Memory types: in-context, external, episodic</li>
-            <li>Gemini API: chat, streaming, function calling</li>
-            <li>ADK setup, runner, InMemorySessionService</li>
-            <li>Async patterns: await, asyncio.run, FastAPI</li>
-            <li>Prompt engineering for agentic reliability</li>
-          </ul>
-        </div>
-        <div>
-          <div class="detail-col-label">Notebooks</div>
-          <ul class="detail-list">
-            <li>01_agent_loop.ipynb — loop traced manually + ADK</li>
-            <li>02_react_agent.ipynb — ReAct pattern, tool drift fix</li>
-            <li>03_tool_calling.ipynb — schema design, Pydantic</li>
-            <li>04_memory_types.ipynb — session vs external memory</li>
-            <li>05_streaming.ipynb — SSE + FastAPI wrapper</li>
-          </ul>
-        </div>
-      </div>
-      <div class="project-box">
-        <div class="proj-eyebrow">Module project</div>
-        <div class="proj-title">Research assistant agent</div>
-        <div class="proj-desc">ADK agent with Google Search + Wikipedia tools. Takes a topic, plans a research strategy, fetches sources, synthesises a structured report. Deployed locally with FastAPI.</div>
-      </div>
-      <div class="cert-box">
-        <div class="cert-eyebrow">Cloud GenAI Engineer cert alignment</div>
-        <div class="cert-text">Covers GenAI foundations, Gemini API basics, prompt engineering — all tested in the cert exam's foundational domain.</div>
-      </div>
-    </div>
-  </div>
-
-  <!-- Module 02 -->
-  <div class="module" id="mod-c1-02">
-    <div class="module-header" onclick="toggleModule('mod-c1-02')">
-      <label class="check-wrap" onclick="event.stopPropagation()">
-        <input type="checkbox" onchange="toggleDone('mod-c1-02',this.checked,'c1')">
-        <div class="check-box"><svg class="check-icon" viewBox="0 0 12 12" fill="none"><polyline points="1.5,6.5 4.5,9.5 10.5,3" stroke="var(--accent)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
-      </label>
-      <span class="module-num">02</span>
-      <div class="module-title-group">
-        <div class="module-title">Tool design, function calling & MCP servers</div>
-        <div class="module-sub">Production tools, Pydantic validation, FastMCP server, ADK + Claude consuming MCP</div>
-      </div>
-      <div class="module-tags"><span class="tag tag-cert">cert: tool use</span><span class="tag tag-mcp">FastMCP</span><span class="tag tag-week">~25 hrs</span></div>
-      <div class="expand-icon">+</div>
-    </div>
-    <div class="module-detail">
-      <div class="detail-grid">
-        <div>
-          <div class="detail-col-label">What you'll learn</div>
-          <ul class="detail-list">
-            <li>JSON schema design — types, enums, required fields</li>
-            <li>Pydantic v2 input validation for tools</li>
-            <li>Parallel vs sequential tool calls</li>
-            <li>Tool error handling and retry logic</li>
-            <li>Testing tools in isolation with pytest</li>
-            <li>MCP protocol — what it is and why it matters</li>
-            <li>Building MCP servers with FastMCP</li>
-            <li>Connecting ADK agents to MCP servers</li>
-            <li>Connecting Claude SDK to the same MCP server</li>
-            <li>Deploying MCP server to Cloud Run</li>
-          </ul>
-        </div>
-        <div>
-          <div class="detail-col-label">Notebooks</div>
-          <ul class="detail-list">
-            <li>01_json_schema_and_types.ipynb</li>
-            <li>02_pydantic_validation.ipynb</li>
-            <li>03_parallel_tools.ipynb</li>
-            <li>04_error_handling.ipynb</li>
-            <li>05_mcp_server_fastmcp.ipynb</li>
-            <li>06_adk_consuming_mcp.ipynb</li>
-            <li>07_claude_consuming_mcp.ipynb</li>
-          </ul>
-        </div>
-      </div>
-      <div class="mcp-box">
-        <div class="mcp-eyebrow">MCP pattern</div>
-        <div class="mcp-text">All tools from this module onwards are built as FastMCP servers — one tool server consumed by ADK agents, LangGraph nodes, and Claude interchangeably. This is the production pattern used in both capstone projects.</div>
-      </div>
-      <div class="project-box">
-        <div class="proj-eyebrow">Module project</div>
-        <div class="proj-title">Financial data MCP server</div>
-        <div class="proj-desc">FastMCP server exposing: get_stock_price, get_news, get_sec_filing, compare_estimates. Deployed to Cloud Run. Consumed by an ADK agent and a Claude agent — same server, different clients.</div>
-      </div>
-      <div class="cert-box">
-        <div class="cert-eyebrow">Cloud GenAI Engineer cert alignment</div>
-        <div class="cert-text">Tool use and function calling is a major exam domain. MCP architecture is increasingly tested as the standard tool protocol.</div>
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- PHASE 2 -->
-<div class="phase">
-  <div class="phase-header">
-    <span class="phase-num">PHASE 02</span>
-    <span class="phase-title">Architectures</span>
-    <span class="phase-weeks">Weeks 3–5</span>
-  </div>
-
-  <!-- Module 03 -->
-  <div class="module" id="mod-c1-03">
-    <div class="module-header" onclick="toggleModule('mod-c1-03')">
-      <label class="check-wrap" onclick="event.stopPropagation()">
-        <input type="checkbox" onchange="toggleDone('mod-c1-03',this.checked,'c1')">
-        <div class="check-box"><svg class="check-icon" viewBox="0 0 12 12" fill="none"><polyline points="1.5,6.5 4.5,9.5 10.5,3" stroke="var(--accent)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
-      </label>
-      <span class="module-num">03</span>
-      <div class="module-title-group">
-        <div class="module-title">Multi-agent architectures</div>
-        <div class="module-sub">Orchestrator + specialist patterns, LangGraph + ADK hybrid, HITL</div>
-      </div>
-      <div class="module-tags"><span class="tag tag-cert">cert: multi-agent</span><span class="tag tag-gcp">Vertex AI</span><span class="tag tag-week">~35 hrs</span></div>
-      <div class="expand-icon">+</div>
-    </div>
-    <div class="module-detail">
-      <div class="detail-grid">
-        <div>
-          <div class="detail-col-label">What you'll learn</div>
-          <ul class="detail-list">
-            <li>Coordinator–worker pattern</li>
-            <li>Sequential, parallel, and fan-out pipelines</li>
-            <li>LangGraph supervisor + ADK specialist agents</li>
-            <li>ADK structural vs LangGraph structural routing</li>
-            <li>Shared state via session.state dict</li>
-            <li>Human-in-the-loop (HITL) approval gates</li>
-            <li>Failure isolation and fallback agents</li>
-            <li>LLM cost strategy — Flash vs Pro per agent role</li>
-          </ul>
-        </div>
-        <div>
-          <div class="detail-col-label">Notebooks</div>
-          <ul class="detail-list">
-            <li>01_coordinator_worker.ipynb</li>
-            <li>02_langgraph_adk_hybrid.ipynb</li>
-            <li>03_parallel_fan_out.ipynb</li>
-            <li>04_hitl_approval.ipynb</li>
-            <li>05_failure_isolation.ipynb</li>
-          </ul>
-        </div>
-      </div>
-      <div class="project-box">
-        <div class="proj-eyebrow">Module project</div>
-        <div class="proj-title">Content production pipeline</div>
-        <div class="proj-desc">LangGraph orchestrator delegates to ADK specialist agents: research → outline → write → edit. Includes HITL approval gate before final output. MCP server provides all tools.</div>
-      </div>
-      <div class="cert-box">
-        <div class="cert-eyebrow">Cloud GenAI Engineer cert alignment</div>
-        <div class="cert-text">Multi-agent systems and orchestration are a dedicated domain in the GenAI Engineer exam.</div>
-      </div>
-    </div>
-  </div>
-
-  <!-- Module 04 -->
-  <div class="module" id="mod-c1-04">
-    <div class="module-header" onclick="toggleModule('mod-c1-04')">
-      <label class="check-wrap" onclick="event.stopPropagation()">
-        <input type="checkbox" onchange="toggleDone('mod-c1-04',this.checked,'c1')">
-        <div class="check-box"><svg class="check-icon" viewBox="0 0 12 12" fill="none"><polyline points="1.5,6.5 4.5,9.5 10.5,3" stroke="var(--accent)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
-      </label>
-      <span class="module-num">04</span>
-      <div class="module-title-group">
-        <div class="module-title">Memory, state & RAG</div>
-        <div class="module-sub">Vector search, RAG pipelines, Firestore session state</div>
-      </div>
-      <div class="module-tags"><span class="tag tag-cert">cert: RAG</span><span class="tag tag-gcp">Vertex AI Search</span><span class="tag tag-gcp">Firestore</span><span class="tag tag-week">~28 hrs</span></div>
-      <div class="expand-icon">+</div>
-    </div>
-    <div class="module-detail">
-      <div class="detail-grid">
-        <div>
-          <div class="detail-col-label">What you'll learn</div>
-          <ul class="detail-list">
-            <li>Vector embeddings and similarity search</li>
-            <li>RAG pipeline: chunk → embed → store → retrieve → generate</li>
-            <li>Vertex AI Vector Search setup</li>
-            <li>Hybrid search (keyword + semantic)</li>
-            <li>Reranking retrieved chunks</li>
-            <li>Cloud Firestore for agent session state</li>
-            <li>RAG evaluation: recall, precision, faithfulness</li>
-            <li>RAG as an MCP tool — reusable across agents</li>
-          </ul>
-        </div>
-        <div>
-          <div class="detail-col-label">Notebooks</div>
-          <ul class="detail-list">
-            <li>01_embeddings_and_vectors.ipynb</li>
-            <li>02_rag_pipeline.ipynb</li>
-            <li>03_vertex_ai_vector_search.ipynb</li>
-            <li>04_firestore_session_state.ipynb</li>
-            <li>05_hybrid_search.ipynb</li>
-            <li>06_rag_evaluation.ipynb</li>
-          </ul>
-        </div>
-      </div>
-      <div class="project-box">
-        <div class="proj-eyebrow">Module project</div>
-        <div class="proj-title">Knowledge-base Q&amp;A agent</div>
-        <div class="proj-desc">Ingests PDF documents, chunks and embeds into Vertex AI Vector Search, serves RAG-powered Q&amp;A agent. Deployed on Cloud Run with Firestore conversation history. RAG exposed as MCP tool.</div>
-      </div>
-      <div class="cert-box">
-        <div class="cert-eyebrow">Cloud GenAI Engineer cert alignment</div>
-        <div class="cert-text">RAG and grounding are heavily tested — this module covers the full pipeline end-to-end.</div>
-      </div>
-    </div>
-  </div>
-
-  <!-- Module 05 -->
-  <div class="module" id="mod-c1-05">
-    <div class="module-header" onclick="toggleModule('mod-c1-05')">
-      <label class="check-wrap" onclick="event.stopPropagation()">
-        <input type="checkbox" onchange="toggleDone('mod-c1-05',this.checked,'c1')">
-        <div class="check-box"><svg class="check-icon" viewBox="0 0 12 12" fill="none"><polyline points="1.5,6.5 4.5,9.5 10.5,3" stroke="var(--accent)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
-      </label>
-      <span class="module-num">05</span>
-      <div class="module-title-group">
-        <div class="module-title">Advanced agent patterns</div>
-        <div class="module-sub">Planning, reflection loops, self-correction, guardrails, evals</div>
-      </div>
-      <div class="module-tags"><span class="tag tag-cert">cert: reasoning</span><span class="tag tag-proj">patterns</span><span class="tag tag-week">~26 hrs</span></div>
-      <div class="expand-icon">+</div>
-    </div>
-    <div class="module-detail">
-      <div class="detail-grid">
-        <div>
-          <div class="detail-col-label">What you'll learn</div>
-          <ul class="detail-list">
-            <li>Plan-and-execute vs ReAct vs LATS</li>
-            <li>Reflection and self-critique loops</li>
-            <li>Tree of Thoughts for complex decisions</li>
-            <li>Code-writing agents with sandboxed execution</li>
-            <li>Structured output with Pydantic + Gemini</li>
-            <li>Guardrails: output validation, safety checks</li>
-            <li>Prompt injection defence</li>
-            <li>Trajectory evaluation — agent quality metrics</li>
-          </ul>
-        </div>
-        <div>
-          <div class="detail-col-label">Notebooks</div>
-          <ul class="detail-list">
-            <li>01_plan_and_execute.ipynb</li>
-            <li>02_reflection_loops.ipynb</li>
-            <li>03_tree_of_thoughts.ipynb</li>
-            <li>04_code_execution_agents.ipynb</li>
-            <li>05_structured_output.ipynb</li>
-            <li>06_guardrails_and_safety.ipynb</li>
-            <li>07_agent_evaluation.ipynb</li>
-          </ul>
-        </div>
-      </div>
-      <div class="project-box">
-        <div class="proj-eyebrow">Module project</div>
-        <div class="proj-title">Autonomous coding assistant</div>
-        <div class="proj-desc">Agent writes Python code, executes in sandboxed environment, observes output, iteratively fixes until tests pass. Reflection loop + guardrails. Code execution exposed as MCP tool.</div>
-      </div>
-      <div class="cert-box">
-        <div class="cert-eyebrow">Cloud GenAI Engineer cert alignment</div>
-        <div class="cert-text">Reasoning patterns and responsible AI are tested across multiple domains in the exam.</div>
-      </div>
-    </div>
-  </div>
-
-  <!-- Module 06 -->
-  <div class="module" id="mod-c1-06">
-    <div class="module-header" onclick="toggleModule('mod-c1-06')">
-      <label class="check-wrap" onclick="event.stopPropagation()">
-        <input type="checkbox" onchange="toggleDone('mod-c1-06',this.checked,'c1')">
-        <div class="check-box"><svg class="check-icon" viewBox="0 0 12 12" fill="none"><polyline points="1.5,6.5 4.5,9.5 10.5,3" stroke="var(--accent)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
-      </label>
-      <span class="module-num">06</span>
-      <div class="module-title-group">
-        <div class="module-title">Prompt &amp; harness engineering</div>
-        <div class="module-sub">Prompt design, eval harnesses, Claude Skills, multi-model prompting</div>
-      </div>
-      <div class="module-tags"><span class="tag tag-cert">cert: prompting</span><span class="tag tag-mcp">Claude Skills</span><span class="tag tag-week">~20 hrs</span></div>
-      <div class="expand-icon">+</div>
-    </div>
-    <div class="module-detail">
-      <div class="detail-grid">
-        <div>
-          <div class="detail-col-label">What you'll learn</div>
-          <ul class="detail-list">
-            <li>Prompt engineering principles — clarity, examples, CoT</li>
-            <li>System vs user prompt design for agents</li>
-            <li>Eval harnesses — testing prompt changes at scale</li>
-            <li>Claude SDK — model, messages, tools API</li>
-            <li>Claude Skills — building and consuming skills</li>
-            <li>Multi-model prompting — Gemini vs Claude strengths</li>
-            <li>Prompt versioning and regression testing</li>
-            <li>Anthropic prompt engineering best practices</li>
-          </ul>
-        </div>
-        <div>
-          <div class="detail-col-label">Notebooks</div>
-          <ul class="detail-list">
-            <li>01_prompt_engineering_principles.ipynb</li>
-            <li>02_eval_harness.ipynb</li>
-            <li>03_claude_sdk_basics.ipynb</li>
-            <li>04_claude_skills.ipynb</li>
-            <li>05_multi_model_prompting.ipynb</li>
-            <li>06_prompt_versioning.ipynb</li>
-          </ul>
-        </div>
-      </div>
-      <div class="project-box">
-        <div class="proj-eyebrow">Module project</div>
-        <div class="proj-title">Prompt eval harness</div>
-        <div class="proj-desc">Automated harness that runs a prompt suite against Gemini Flash, Gemini Pro, and Claude Sonnet. Scores outputs, tracks regressions, and generates a comparison report. Used to tune capstone agent prompts.</div>
-      </div>
-      <div class="cert-box">
-        <div class="cert-eyebrow">Cloud GenAI Engineer cert alignment</div>
-        <div class="cert-text">Prompt engineering and evaluation are tested in the Gemini API and responsible AI domains.</div>
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- PHASE 3 -->
-<div class="phase">
-  <div class="phase-header">
-    <span class="phase-num">PHASE 03</span>
-    <span class="phase-title">GCP Deployment</span>
-    <span class="phase-weeks">Weeks 6–8</span>
-  </div>
-
-  <!-- Module 07 -->
-  <div class="module" id="mod-c1-07">
-    <div class="module-header" onclick="toggleModule('mod-c1-07')">
-      <label class="check-wrap" onclick="event.stopPropagation()">
-        <input type="checkbox" onchange="toggleDone('mod-c1-07',this.checked,'c1')">
-        <div class="check-box"><svg class="check-icon" viewBox="0 0 12 12" fill="none"><polyline points="1.5,6.5 4.5,9.5 10.5,3" stroke="var(--accent)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
-      </label>
-      <span class="module-num">07</span>
-      <div class="module-title-group">
-        <div class="module-title">GCP fundamentals for AI</div>
-        <div class="module-sub">IAM, Secret Manager, Cloud Run, Artifact Registry, CI/CD</div>
-      </div>
-      <div class="module-tags"><span class="tag tag-cert">cert: GCP infra</span><span class="tag tag-gcp">Cloud Run</span><span class="tag tag-week">~28 hrs</span></div>
-      <div class="expand-icon">+</div>
-    </div>
-    <div class="module-detail">
-      <div class="detail-grid">
-        <div>
-          <div class="detail-col-label">What you'll learn</div>
-          <ul class="detail-list">
-            <li>IAM roles for AI workloads (least-privilege)</li>
-            <li>Secret Manager for API keys and credentials</li>
-            <li>Multi-stage Dockerfiles for AI services</li>
-            <li>Artifact Registry: build, push, pull</li>
-            <li>Cloud Run: deploy, env vars, concurrency, min instances</li>
-            <li>Cloud Logging and Monitoring basics</li>
-            <li>CORS configuration for Cloud Run + GitHub Pages</li>
-            <li>GitHub Actions CI/CD: test → build → push → deploy</li>
-            <li>Budget alerts and cost management</li>
-          </ul>
-        </div>
-        <div>
-          <div class="detail-col-label">Notebooks</div>
-          <ul class="detail-list">
-            <li>01_iam_and_secrets.ipynb</li>
-            <li>02_docker_for_ai.ipynb</li>
-            <li>03_cloud_run_deploy.ipynb</li>
-            <li>04_artifact_registry.ipynb</li>
-            <li>05_github_actions_cicd.ipynb</li>
-            <li>06_logging_and_monitoring.ipynb</li>
-          </ul>
-        </div>
-      </div>
-      <div class="project-box">
-        <div class="proj-eyebrow">Module project</div>
-        <div class="proj-title">Production-grade RAG API</div>
-        <div class="proj-desc">Containerise the module 04 RAG agent. Deploy to Cloud Run with IAM auth, Secret Manager, structured logging, health-check endpoint, and full GitHub Actions CI/CD pipeline.</div>
-      </div>
-      <div class="cert-box">
-        <div class="cert-eyebrow">Cloud GenAI Engineer cert alignment</div>
-        <div class="cert-text">GCP infrastructure and deployment are core exam domains — IAM, Cloud Run, and observability are directly tested.</div>
-      </div>
-    </div>
-  </div>
-
-  <!-- Module 08 -->
-  <div class="module" id="mod-c1-08">
-    <div class="module-header" onclick="toggleModule('mod-c1-08')">
-      <label class="check-wrap" onclick="event.stopPropagation()">
-        <input type="checkbox" onchange="toggleDone('mod-c1-08',this.checked,'c1')">
-        <div class="check-box"><svg class="check-icon" viewBox="0 0 12 12" fill="none"><polyline points="1.5,6.5 4.5,9.5 10.5,3" stroke="var(--accent)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
-      </label>
-      <span class="module-num">08</span>
-      <div class="module-title-group">
-        <div class="module-title">Vertex AI &amp; managed services</div>
-        <div class="module-sub">Agent Builder, Model Garden, Pipelines, Evaluation Service</div>
-      </div>
-      <div class="module-tags"><span class="tag tag-cert">cert: Vertex AI</span><span class="tag tag-gcp">Agent Builder</span><span class="tag tag-gcp">Model Garden</span><span class="tag tag-week">~22 hrs</span></div>
-      <div class="expand-icon">+</div>
-    </div>
-    <div class="module-detail">
-      <div class="detail-grid">
-        <div>
-          <div class="detail-col-label">What you'll learn</div>
-          <ul class="detail-list">
-            <li>Vertex AI Agent Builder vs DIY ADK trade-offs</li>
-            <li>Grounding with Google Search on Vertex AI</li>
-            <li>Model Garden: Gemini models, open models</li>
-            <li>Vertex AI Pipelines for batch agent jobs</li>
-            <li>Evaluation Service: automatic agent evals</li>
-            <li>Responsible AI: safety filters, PII redaction</li>
-            <li>Model tuning and fine-tuning basics</li>
-            <li>Cost optimisation: model selection, caching</li>
-          </ul>
-        </div>
-        <div>
-          <div class="detail-col-label">Notebooks</div>
-          <ul class="detail-list">
-            <li>01_agent_builder_vs_adk.ipynb</li>
-            <li>02_grounding_with_search.ipynb</li>
-            <li>03_model_garden.ipynb</li>
-            <li>04_vertex_pipelines.ipynb</li>
-            <li>05_evaluation_service.ipynb</li>
-            <li>06_responsible_ai.ipynb</li>
-          </ul>
-        </div>
-      </div>
-      <div class="project-box">
-        <div class="proj-eyebrow">Module project</div>
-        <div class="proj-title">Enterprise search agent</div>
-        <div class="proj-desc">Vertex AI Agent Builder over a large document corpus with Google Search grounding. Safety filters, PII redaction, automatic eval harness, and Vertex AI Pipeline for nightly re-indexing.</div>
-      </div>
-      <div class="cert-box">
-        <div class="cert-eyebrow">Cloud GenAI Engineer cert alignment</div>
-        <div class="cert-text">Vertex AI is the heart of the GenAI Engineer exam — this module prepares you for all Vertex-specific questions.</div>
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- PHASE 4 -->
-<div class="phase">
-  <div class="phase-header">
-    <span class="phase-num">PHASE 04</span>
-    <span class="phase-title">Capstone projects &amp; showcase</span>
-    <span class="phase-weeks">Weeks 9–13</span>
-  </div>
-
-  <!-- Module 09 -->
-  <div class="module" id="mod-c1-09">
-    <div class="module-header" onclick="toggleModule('mod-c1-09')">
-      <label class="check-wrap" onclick="event.stopPropagation()">
-        <input type="checkbox" onchange="toggleDone('mod-c1-09',this.checked,'c1')">
-        <div class="check-box"><svg class="check-icon" viewBox="0 0 12 12" fill="none"><polyline points="1.5,6.5 4.5,9.5 10.5,3" stroke="var(--accent)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
-      </label>
-      <span class="module-num">09</span>
-      <div class="module-title-group">
-        <div class="module-title">Capstone 1 — Trade research assistant</div>
-        <div class="module-sub">LangGraph + ADK hybrid · MCP tools · Cloud Run · GitHub Pages</div>
-      </div>
-      <div class="module-tags"><span class="tag tag-proj">capstone</span><span class="tag tag-gcp">full GCP stack</span><span class="tag tag-mcp">FastMCP</span><span class="tag tag-week">~35 hrs</span></div>
-      <div class="expand-icon">+</div>
-    </div>
-    <div class="module-detail">
-      <div class="detail-grid">
-        <div>
-          <div class="detail-col-label">Architecture</div>
-          <ul class="detail-list">
-            <li>LangGraph supervisor — routing, compliance gate</li>
-            <li>ADK market research agent (Gemini Flash)</li>
-            <li>ADK risk analyst agent (Gemini Flash)</li>
-            <li>LangGraph compliance screener (Gemini Pro)</li>
-            <li>ADK report writer agent (Gemini Pro)</li>
-            <li>FastMCP server — all financial data tools</li>
-            <li>Vertex AI Vector Search — SEC filings RAG</li>
-            <li>Firestore — session state + audit log</li>
-          </ul>
-        </div>
-        <div>
-          <div class="detail-col-label">Deployment</div>
-          <ul class="detail-list">
-            <li>Multi-container Cloud Run service</li>
-            <li>FastMCP server as separate Cloud Run service</li>
-            <li>GitHub Actions CI/CD pipeline</li>
-            <li>GitHub Pages demo UI with SSE streaming</li>
-            <li>IAM + Secret Manager for all credentials</li>
-            <li>Cloud Monitoring dashboard</li>
-            <li>Load testing with Locust</li>
-          </ul>
-        </div>
-      </div>
-      <div class="project-box">
-        <div class="proj-eyebrow">Capstone project</div>
-        <div class="proj-title">Trade Research Assistant — live deployed system</div>
-        <div class="proj-desc">User describes a trade idea → system researches stock, analyses risk, runs compliance check, generates structured research brief. Full production system: LangGraph + ADK + FastMCP + Vertex AI + Cloud Run + GitHub Pages.</div>
-      </div>
-    </div>
-  </div>
-
-  <!-- Module 10 -->
-  <div class="module" id="mod-c1-10">
-    <div class="module-header" onclick="toggleModule('mod-c1-10')">
-      <label class="check-wrap" onclick="event.stopPropagation()">
-        <input type="checkbox" onchange="toggleDone('mod-c1-10',this.checked,'c1')">
-        <div class="check-box"><svg class="check-icon" viewBox="0 0 12 12" fill="none"><polyline points="1.5,6.5 4.5,9.5 10.5,3" stroke="var(--accent)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
-      </label>
-      <span class="module-num">10</span>
-      <div class="module-title-group">
-        <div class="module-title">Capstone 2 — Earnings call analyser</div>
-        <div class="module-sub">Transcript ingestion · signal extraction · trade thesis · deployed</div>
-      </div>
-      <div class="module-tags"><span class="tag tag-proj">capstone</span><span class="tag tag-gcp">full GCP stack</span><span class="tag tag-mcp">FastMCP</span><span class="tag tag-week">~35 hrs</span></div>
-      <div class="expand-icon">+</div>
-    </div>
-    <div class="module-detail">
-      <div class="detail-grid">
-        <div>
-          <div class="detail-col-label">Architecture</div>
-          <ul class="detail-list">
-            <li>LangGraph supervisor — document strategy, sequencing</li>
-            <li>ADK transcript ingestion agent (Gemini Flash)</li>
-            <li>ADK signal extractor agent (Gemini Flash)</li>
-            <li>ADK estimates comparator agent (Gemini Flash)</li>
-            <li>ADK thesis writer agent (Gemini Pro)</li>
-            <li>FastMCP server — financial APIs, estimates data</li>
-            <li>Vertex AI Vector Search — historical earnings RAG</li>
-          </ul>
-        </div>
-        <div>
-          <div class="detail-col-label">Deployment</div>
-          <ul class="detail-list">
-            <li>Cloud Run with PDF upload endpoint</li>
-            <li>Reuses FastMCP server from Capstone 1</li>
-            <li>GitHub Actions CI/CD</li>
-            <li>GitHub Pages demo — upload transcript, get thesis</li>
-            <li>Output: PDF trade thesis download</li>
-            <li>Cost per request target: under $0.05</li>
-          </ul>
-        </div>
-      </div>
-      <div class="project-box">
-        <div class="proj-eyebrow">Capstone project</div>
-        <div class="proj-title">Earnings Call Analyser — live deployed system</div>
-        <div class="proj-desc">Upload earnings transcript → system extracts signals, compares estimates, generates bull/bear trade thesis. Full production system with PDF output. Both capstores link from GitHub Pages portfolio.</div>
-      </div>
-    </div>
-  </div>
-
-  <!-- Module 11 — GitHub Pages showcase -->
-  <div class="module" id="mod-c1-11">
-    <div class="module-header" onclick="toggleModule('mod-c1-11')">
-      <label class="check-wrap" onclick="event.stopPropagation()">
-        <input type="checkbox" onchange="toggleDone('mod-c1-11',this.checked,'c1')">
-        <div class="check-box"><svg class="check-icon" viewBox="0 0 12 12" fill="none"><polyline points="1.5,6.5 4.5,9.5 10.5,3" stroke="var(--accent)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
-      </label>
-      <span class="module-num">11</span>
-      <div class="module-title-group">
-        <div class="module-title">GitHub Pages portfolio &amp; showcase</div>
-        <div class="module-sub">SSE streaming, portfolio site, CI/CD, observability, load testing</div>
-      </div>
-      <div class="module-tags"><span class="tag tag-proj">GitHub Pages</span><span class="tag tag-gcp">Cloud Monitoring</span><span class="tag tag-week">~15 hrs</span></div>
-      <div class="expand-icon">+</div>
-    </div>
-    <div class="module-detail">
-      <div class="detail-grid">
-        <div>
-          <div class="detail-col-label">What you'll build</div>
-          <ul class="detail-list">
-            <li>yourusername.github.io portfolio site</li>
-            <li>Live demo UIs for both capstone projects</li>
-            <li>SSE streaming from Cloud Run to browser</li>
-            <li>GitHub Actions auto-deploy on push</li>
-            <li>API gateway pattern for Cloud Run security</li>
-          </ul>
-        </div>
-        <div>
-          <div class="detail-col-label">Production polish</div>
-          <ul class="detail-list">
-            <li>Load testing with Locust</li>
-            <li>Cloud Monitoring dashboards</li>
-            <li>Cost profiling per request</li>
-            <li>README and architecture docs</li>
-            <li>Cert badge on portfolio once earned</li>
-          </ul>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- PHASE 5 — CERT -->
-<div class="phase">
-  <div class="phase-header cert-phase-header">
-    <span class="phase-num">PHASE 05</span>
-    <span class="phase-title">Cloud GenAI Engineer certification</span>
-    <span class="phase-weeks">Weeks 14–15</span>
-  </div>
-
-  <div class="module cert-item" id="mod-c1-cert">
-    <div class="module-header" onclick="toggleModule('mod-c1-cert')">
-      <label class="check-wrap" onclick="event.stopPropagation()">
-        <input type="checkbox" onchange="toggleDone('mod-c1-cert',this.checked,'c1')">
-        <div class="check-box"><svg class="check-icon" viewBox="0 0 12 12" fill="none"><polyline points="1.5,6.5 4.5,9.5 10.5,3" stroke="var(--accent)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
-      </label>
-      <span class="module-num" style="color:var(--teal)">★</span>
-      <div class="module-title-group">
-        <div class="module-title">Google Cloud GenAI Engineer — exam &amp; certification</div>
-        <div class="module-sub">2-week dedicated prep sprint · sit the exam · earn the credential</div>
-      </div>
-      <div class="module-tags"><span class="tag tag-cert">official exam</span><span class="tag tag-week">~$200 USD</span><span class="tag tag-week">120 mins</span></div>
-      <div class="expand-icon">+</div>
-    </div>
-    <div class="module-detail">
-      <div class="detail-col-label" style="margin-bottom:.6rem">Exam domains covered</div>
-      <div class="exam-domains">
-        <span class="domain-pill">GenAI fundamentals</span>
-        <span class="domain-pill">Gemini API &amp; prompting</span>
-        <span class="domain-pill">RAG &amp; grounding</span>
-        <span class="domain-pill">Multi-agent systems</span>
-        <span class="domain-pill">Vertex AI services</span>
-        <span class="domain-pill">Model evaluation</span>
-        <span class="domain-pill">Responsible AI</span>
-        <span class="domain-pill">GCP infra for AI</span>
-        <span class="domain-pill">MLOps &amp; deployment</span>
-        <span class="domain-pill">Cost optimisation</span>
-      </div>
-      <div class="prep-grid">
-        <div class="prep-card"><div class="prep-card-label">Format</div><div class="prep-card-val">Multiple choice + multi-select. No coding on the day.</div></div>
-        <div class="prep-card"><div class="prep-card-label">Duration</div><div class="prep-card-val">120 minutes. Online proctored or test centre.</div></div>
-        <div class="prep-card"><div class="prep-card-label">Cost</div><div class="prep-card-val">~$200 USD. One free retake if needed.</div></div>
-        <div class="prep-card"><div class="prep-card-label">Prep path</div><div class="prep-card-val">Google Cloud Skills Boost + practice tests.</div></div>
-        <div class="prep-card"><div class="prep-card-label">Validity</div><div class="prep-card-val">2 years. Renewal by recertification.</div></div>
-        <div class="prep-card"><div class="prep-card-label">Register</div><div class="prep-card-val"><a href="https://cloud.google.com/learn/certification" target="_blank" style="color:var(--teal);text-decoration:none">cloud.google.com/certification ↗</a></div></div>
-      </div>
-      <div class="cert-achievement">
-        <div class="cert-icon-wrap">★</div>
-        <div>
-          <div class="cert-ach-title">Google Cloud Certified — Professional GenAI Engineer</div>
-          <div class="cert-ach-desc">By this phase every exam domain maps to something you've built and deployed. Add the badge to LinkedIn and the GitHub Pages portfolio. Then start Course 2.</div>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-
-</main>
-</div><!-- end course-c1 -->
-
 
 <!-- ══════════════════════════════════════════════════════════════════════
-     COURSE 2
+     MAIN PANEL: GENERATIVE & AGENTIC AI
 ════════════════════════════════════════════════════════════════════════ -->
-<div id="course-c2" class="course-panel">
+<div id="tab-gen-ai" class="main-panel active">
 
-<div class="progress-section">
-  <span class="progress-label">Course 2 progress</span>
-  <div class="progress-track"><div class="progress-fill" id="prog-fill-c2"></div></div>
-  <span class="progress-count"><span id="prog-done-c2">0</span> / 8 completed</span>
+  <!-- Course sub-tabs -->
+  <nav class="course-nav">
+    <button type="button" class="course-tab active" data-course="c1">Course 1 — Agentic AI &amp; GCP</button>
+    <button type="button" class="course-tab" data-course="c2">Course 2 — LangChain &amp; LangGraph</button>
+    <button type="button" class="course-tab" data-course="c3">Course 3 — Local LLMs &amp; Internals</button>
+  </nav>
+
+  <!-- ══ COURSE 1 ══ -->
+  <div id="course-c1" class="course-panel active">
+    <div class="progress-section">
+      <span class="progress-label">Course 1 progress</span>
+      <div class="progress-track"><div class="progress-fill" id="prog-fill-c1"></div></div>
+      <span class="progress-count"><span id="prog-done-c1">0</span> / 8 completed</span>
+    </div>
+    <div class="legend">
+      <span class="leg"><span class="leg-dot" style="background:var(--cert-color)"></span>cert domain</span>
+      <span class="leg"><span class="leg-dot" style="background:var(--proj-color)"></span>project</span>
+      <span class="leg"><span class="leg-dot" style="background:var(--gcp-color)"></span>GCP</span>
+      <span class="leg"><span class="leg-dot" style="background:var(--mcp-color)"></span>MCP / FastMCP</span>
+    </div>
+    <main class="main">
+
+    <!-- PHASE 1 -->
+    <div class="phase">
+      <div class="phase-header">
+        <span class="phase-num">PHASE 01</span>
+        <span class="phase-title">Foundations</span>
+        <span class="phase-weeks">Weeks 1–2</span>
+      </div>
+
+      <div class="module" id="mod-c1-01">
+        <div class="module-header" onclick="toggleModule('mod-c1-01')">
+          <label class="check-wrap" onclick="event.stopPropagation()">
+            <input type="checkbox" onchange="toggleDone('mod-c1-01',this.checked,'c1')">
+            <div class="check-box"><svg class="check-icon" viewBox="0 0 12 12" fill="none"><polyline points="1.5,6.5 4.5,9.5 10.5,3" stroke="var(--accent)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+          </label>
+          <span class="module-num">01</span>
+          <div class="module-title-group">
+            <div class="module-title">Agentic AI fundamentals</div>
+            <div class="module-sub">Agent loop, ReAct, tool calling, memory types, ADK setup, streaming</div>
+          </div>
+          <div class="module-tags"><span class="tag tag-cert">cert: AI concepts</span><span class="tag tag-week">~30 hrs</span></div>
+          <div class="expand-icon">+</div>
+        </div>
+        <div class="module-detail">
+          <div class="detail-grid">
+            <div>
+              <div class="detail-col-label">What you'll learn</div>
+              <ul class="detail-list">
+                <li>Agent loop: perceive → think → act → observe</li>
+                <li>ReAct pattern: reasoning before acting</li>
+                <li>Tool calling mechanics — JSON schema, docstrings</li>
+                <li>Memory types: in-context, external, episodic</li>
+                <li>Gemini API: chat, streaming, function calling</li>
+                <li>ADK setup, runner, InMemorySessionService</li>
+                <li>Async patterns: await, asyncio.run, FastAPI</li>
+                <li>Prompt engineering for agentic reliability</li>
+              </ul>
+            </div>
+            <div>
+              <div class="detail-col-label">Notebooks</div>
+              <ul class="detail-list">
+                <li>01_agent_loop.ipynb</li>
+                <li>02_react_agent.ipynb</li>
+                <li>03_tool_calling.ipynb</li>
+                <li>04_memory_types.ipynb</li>
+                <li>05_streaming.ipynb</li>
+              </ul>
+            </div>
+          </div>
+          <div class="cert-box">
+            <div class="cert-eyebrow">Cloud GenAI Engineer cert alignment</div>
+            <div class="cert-text">Covers GenAI foundations, Gemini API basics, prompt engineering — all tested in the cert exam's foundational domain.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="module" id="mod-c1-02">
+        <div class="module-header" onclick="toggleModule('mod-c1-02')">
+          <label class="check-wrap" onclick="event.stopPropagation()">
+            <input type="checkbox" onchange="toggleDone('mod-c1-02',this.checked,'c1')">
+            <div class="check-box"><svg class="check-icon" viewBox="0 0 12 12" fill="none"><polyline points="1.5,6.5 4.5,9.5 10.5,3" stroke="var(--accent)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+          </label>
+          <span class="module-num">02</span>
+          <div class="module-title-group">
+            <div class="module-title">Tool design, function calling &amp; MCP servers</div>
+            <div class="module-sub">Production tools, Pydantic validation, FastMCP server, ADK + Claude consuming MCP</div>
+          </div>
+          <div class="module-tags"><span class="tag tag-cert">cert: tool use</span><span class="tag tag-mcp">FastMCP</span><span class="tag tag-week">~25 hrs</span></div>
+          <div class="expand-icon">+</div>
+        </div>
+        <div class="module-detail">
+          <div class="detail-grid">
+            <div>
+              <div class="detail-col-label">What you'll learn</div>
+              <ul class="detail-list">
+                <li>JSON schema design — types, enums, required fields</li>
+                <li>Pydantic v2 input validation for tools</li>
+                <li>Parallel vs sequential tool calls</li>
+                <li>Tool error handling and retry logic</li>
+                <li>MCP protocol — what it is and why it matters</li>
+                <li>Building MCP servers with FastMCP</li>
+                <li>Connecting ADK agents to MCP servers</li>
+                <li>Deploying MCP server to Cloud Run</li>
+              </ul>
+            </div>
+            <div>
+              <div class="detail-col-label">Notebooks</div>
+              <ul class="detail-list">
+                <li>01_json_schema_and_types.ipynb</li>
+                <li>02_pydantic_validation.ipynb</li>
+                <li>03_parallel_tools.ipynb</li>
+                <li>04_error_handling.ipynb</li>
+                <li>05_mcp_server_fastmcp.ipynb</li>
+                <li>06_adk_consuming_mcp.ipynb</li>
+                <li>07_claude_consuming_mcp.ipynb</li>
+              </ul>
+            </div>
+          </div>
+          <div class="mcp-box">
+            <div class="mcp-eyebrow">MCP pattern</div>
+            <div class="mcp-text">All tools from this module onwards are built as FastMCP servers — one tool server consumed by ADK agents, LangGraph nodes, and Claude interchangeably.</div>
+          </div>
+          <div class="cert-box">
+            <div class="cert-eyebrow">Cloud GenAI Engineer cert alignment</div>
+            <div class="cert-text">Tool use and function calling is a major exam domain. MCP architecture is increasingly tested as the standard tool protocol.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- PHASE 2 -->
+    <div class="phase">
+      <div class="phase-header">
+        <span class="phase-num">PHASE 02</span>
+        <span class="phase-title">Architectures</span>
+        <span class="phase-weeks">Weeks 3–5</span>
+      </div>
+
+      <div class="module" id="mod-c1-03">
+        <div class="module-header" onclick="toggleModule('mod-c1-03')">
+          <label class="check-wrap" onclick="event.stopPropagation()">
+            <input type="checkbox" onchange="toggleDone('mod-c1-03',this.checked,'c1')">
+            <div class="check-box"><svg class="check-icon" viewBox="0 0 12 12" fill="none"><polyline points="1.5,6.5 4.5,9.5 10.5,3" stroke="var(--accent)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+          </label>
+          <span class="module-num">03</span>
+          <div class="module-title-group">
+            <div class="module-title">Multi-agent architectures</div>
+            <div class="module-sub">Orchestrator + specialist patterns, LangGraph + ADK hybrid, HITL</div>
+          </div>
+          <div class="module-tags"><span class="tag tag-cert">cert: multi-agent</span><span class="tag tag-gcp">Vertex AI</span><span class="tag tag-week">~35 hrs</span></div>
+          <div class="expand-icon">+</div>
+        </div>
+        <div class="module-detail">
+          <div class="detail-grid">
+            <div>
+              <div class="detail-col-label">What you'll learn</div>
+              <ul class="detail-list">
+                <li>Coordinator–worker pattern</li>
+                <li>Sequential, parallel, and fan-out pipelines</li>
+                <li>LangGraph supervisor + ADK specialist agents</li>
+                <li>Shared state via session.state dict</li>
+                <li>Human-in-the-loop (HITL) approval gates</li>
+                <li>Failure isolation and fallback agents</li>
+                <li>LLM cost strategy — Flash vs Pro per agent role</li>
+              </ul>
+            </div>
+            <div>
+              <div class="detail-col-label">Notebooks</div>
+              <ul class="detail-list">
+                <li>01_coordinator_worker.ipynb</li>
+                <li>02_langgraph_adk_hybrid.ipynb</li>
+                <li>03_parallel_fan_out.ipynb</li>
+                <li>04_hitl_approval.ipynb</li>
+                <li>05_failure_isolation.ipynb</li>
+              </ul>
+            </div>
+          </div>
+          <div class="cert-box">
+            <div class="cert-eyebrow">Cloud GenAI Engineer cert alignment</div>
+            <div class="cert-text">Multi-agent systems and orchestration are a dedicated domain in the GenAI Engineer exam.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="module" id="mod-c1-04">
+        <div class="module-header" onclick="toggleModule('mod-c1-04')">
+          <label class="check-wrap" onclick="event.stopPropagation()">
+            <input type="checkbox" onchange="toggleDone('mod-c1-04',this.checked,'c1')">
+            <div class="check-box"><svg class="check-icon" viewBox="0 0 12 12" fill="none"><polyline points="1.5,6.5 4.5,9.5 10.5,3" stroke="var(--accent)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+          </label>
+          <span class="module-num">04</span>
+          <div class="module-title-group">
+            <div class="module-title">Memory, state &amp; RAG</div>
+            <div class="module-sub">Vector search, RAG pipelines, Firestore session state</div>
+          </div>
+          <div class="module-tags"><span class="tag tag-cert">cert: RAG</span><span class="tag tag-gcp">Vertex AI Search</span><span class="tag tag-gcp">Firestore</span><span class="tag tag-week">~28 hrs</span></div>
+          <div class="expand-icon">+</div>
+        </div>
+        <div class="module-detail">
+          <div class="detail-grid">
+            <div>
+              <div class="detail-col-label">What you'll learn</div>
+              <ul class="detail-list">
+                <li>Vector embeddings and similarity search</li>
+                <li>RAG pipeline: chunk → embed → store → retrieve → generate</li>
+                <li>Vertex AI Vector Search setup</li>
+                <li>Hybrid search (keyword + semantic)</li>
+                <li>Reranking retrieved chunks</li>
+                <li>Cloud Firestore for agent session state</li>
+                <li>RAG evaluation: recall, precision, faithfulness</li>
+                <li>RAG as an MCP tool — reusable across agents</li>
+              </ul>
+            </div>
+            <div>
+              <div class="detail-col-label">Notebooks</div>
+              <ul class="detail-list">
+                <li>01_embeddings_and_vectors.ipynb</li>
+                <li>02_rag_pipeline.ipynb</li>
+                <li>03_vertex_ai_vector_search.ipynb</li>
+                <li>04_firestore_session_state.ipynb</li>
+                <li>05_hybrid_search.ipynb</li>
+                <li>06_rag_evaluation.ipynb</li>
+              </ul>
+            </div>
+          </div>
+          <div class="cert-box">
+            <div class="cert-eyebrow">Cloud GenAI Engineer cert alignment</div>
+            <div class="cert-text">RAG and grounding are heavily tested — this module covers the full pipeline end-to-end.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="module" id="mod-c1-05">
+        <div class="module-header" onclick="toggleModule('mod-c1-05')">
+          <label class="check-wrap" onclick="event.stopPropagation()">
+            <input type="checkbox" onchange="toggleDone('mod-c1-05',this.checked,'c1')">
+            <div class="check-box"><svg class="check-icon" viewBox="0 0 12 12" fill="none"><polyline points="1.5,6.5 4.5,9.5 10.5,3" stroke="var(--accent)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+          </label>
+          <span class="module-num">05</span>
+          <div class="module-title-group">
+            <div class="module-title">Advanced agent patterns</div>
+            <div class="module-sub">Planning, reflection loops, self-correction, guardrails, evals</div>
+          </div>
+          <div class="module-tags"><span class="tag tag-cert">cert: reasoning</span><span class="tag tag-proj">patterns</span><span class="tag tag-week">~26 hrs</span></div>
+          <div class="expand-icon">+</div>
+        </div>
+        <div class="module-detail">
+          <div class="detail-grid">
+            <div>
+              <div class="detail-col-label">What you'll learn</div>
+              <ul class="detail-list">
+                <li>Plan-and-execute vs ReAct vs LATS</li>
+                <li>Reflection and self-critique loops</li>
+                <li>Tree of Thoughts for complex decisions</li>
+                <li>Code-writing agents with sandboxed execution</li>
+                <li>Structured output with Pydantic + Gemini</li>
+                <li>Guardrails: output validation, safety checks</li>
+                <li>Trajectory evaluation — agent quality metrics</li>
+              </ul>
+            </div>
+            <div>
+              <div class="detail-col-label">Notebooks</div>
+              <ul class="detail-list">
+                <li>01_plan_and_execute.ipynb</li>
+                <li>02_reflection_loops.ipynb</li>
+                <li>03_tree_of_thoughts.ipynb</li>
+                <li>04_code_execution_agents.ipynb</li>
+                <li>05_structured_output.ipynb</li>
+                <li>06_guardrails_and_safety.ipynb</li>
+                <li>07_agent_evaluation.ipynb</li>
+              </ul>
+            </div>
+          </div>
+          <div class="cert-box">
+            <div class="cert-eyebrow">Cloud GenAI Engineer cert alignment</div>
+            <div class="cert-text">Reasoning patterns and responsible AI are tested across multiple domains in the exam.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="module" id="mod-c1-06">
+        <div class="module-header" onclick="toggleModule('mod-c1-06')">
+          <label class="check-wrap" onclick="event.stopPropagation()">
+            <input type="checkbox" onchange="toggleDone('mod-c1-06',this.checked,'c1')">
+            <div class="check-box"><svg class="check-icon" viewBox="0 0 12 12" fill="none"><polyline points="1.5,6.5 4.5,9.5 10.5,3" stroke="var(--accent)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+          </label>
+          <span class="module-num">06</span>
+          <div class="module-title-group">
+            <div class="module-title">Prompt &amp; harness engineering</div>
+            <div class="module-sub">Prompt design, eval harnesses, Claude Skills, multi-model prompting</div>
+          </div>
+          <div class="module-tags"><span class="tag tag-cert">cert: prompting</span><span class="tag tag-mcp">Claude Skills</span><span class="tag tag-week">~20 hrs</span></div>
+          <div class="expand-icon">+</div>
+        </div>
+        <div class="module-detail">
+          <div class="detail-grid">
+            <div>
+              <div class="detail-col-label">What you'll learn</div>
+              <ul class="detail-list">
+                <li>Prompt engineering principles — clarity, examples, CoT</li>
+                <li>System vs user prompt design for agents</li>
+                <li>Eval harnesses — testing prompt changes at scale</li>
+                <li>Claude SDK — model, messages, tools API</li>
+                <li>Multi-model prompting — Gemini vs Claude strengths</li>
+                <li>Prompt versioning and regression testing</li>
+              </ul>
+            </div>
+            <div>
+              <div class="detail-col-label">Notebooks</div>
+              <ul class="detail-list">
+                <li>01_prompt_engineering_principles.ipynb</li>
+                <li>02_eval_harness.ipynb</li>
+                <li>03_claude_sdk_basics.ipynb</li>
+                <li>04_claude_skills.ipynb</li>
+                <li>05_multi_model_prompting.ipynb</li>
+                <li>06_prompt_versioning.ipynb</li>
+              </ul>
+            </div>
+          </div>
+          <div class="cert-box">
+            <div class="cert-eyebrow">Cloud GenAI Engineer cert alignment</div>
+            <div class="cert-text">Prompt engineering and evaluation are tested in the Gemini API and responsible AI domains.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- PHASE 3 -->
+    <div class="phase">
+      <div class="phase-header">
+        <span class="phase-num">PHASE 03</span>
+        <span class="phase-title">GCP Deployment</span>
+        <span class="phase-weeks">Weeks 6–8</span>
+      </div>
+
+      <div class="module" id="mod-c1-07">
+        <div class="module-header" onclick="toggleModule('mod-c1-07')">
+          <label class="check-wrap" onclick="event.stopPropagation()">
+            <input type="checkbox" onchange="toggleDone('mod-c1-07',this.checked,'c1')">
+            <div class="check-box"><svg class="check-icon" viewBox="0 0 12 12" fill="none"><polyline points="1.5,6.5 4.5,9.5 10.5,3" stroke="var(--accent)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+          </label>
+          <span class="module-num">07</span>
+          <div class="module-title-group">
+            <div class="module-title">GCP fundamentals for AI</div>
+            <div class="module-sub">IAM, Secret Manager, Cloud Run, Artifact Registry, CI/CD</div>
+          </div>
+          <div class="module-tags"><span class="tag tag-cert">cert: GCP infra</span><span class="tag tag-gcp">Cloud Run</span><span class="tag tag-week">~28 hrs</span></div>
+          <div class="expand-icon">+</div>
+        </div>
+        <div class="module-detail">
+          <div class="detail-grid">
+            <div>
+              <div class="detail-col-label">What you'll learn</div>
+              <ul class="detail-list">
+                <li>IAM roles for AI workloads (least-privilege)</li>
+                <li>Secret Manager for API keys and credentials</li>
+                <li>Multi-stage Dockerfiles for AI services</li>
+                <li>Artifact Registry: build, push, pull</li>
+                <li>Cloud Run: deploy, env vars, concurrency, min instances</li>
+                <li>Cloud Logging and Monitoring basics</li>
+                <li>GitHub Actions CI/CD: test → build → push → deploy</li>
+              </ul>
+            </div>
+            <div>
+              <div class="detail-col-label">Notebooks</div>
+              <ul class="detail-list">
+                <li>01_iam_and_secrets.ipynb</li>
+                <li>02_docker_for_ai.ipynb</li>
+                <li>03_cloud_run_deploy.ipynb</li>
+                <li>04_artifact_registry.ipynb</li>
+                <li>05_github_actions_cicd.ipynb</li>
+                <li>06_logging_and_monitoring.ipynb</li>
+              </ul>
+            </div>
+          </div>
+          <div class="cert-box">
+            <div class="cert-eyebrow">Cloud GenAI Engineer cert alignment</div>
+            <div class="cert-text">GCP infrastructure and deployment are core exam domains — IAM, Cloud Run, and observability are directly tested.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="module" id="mod-c1-08">
+        <div class="module-header" onclick="toggleModule('mod-c1-08')">
+          <label class="check-wrap" onclick="event.stopPropagation()">
+            <input type="checkbox" onchange="toggleDone('mod-c1-08',this.checked,'c1')">
+            <div class="check-box"><svg class="check-icon" viewBox="0 0 12 12" fill="none"><polyline points="1.5,6.5 4.5,9.5 10.5,3" stroke="var(--accent)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+          </label>
+          <span class="module-num">08</span>
+          <div class="module-title-group">
+            <div class="module-title">Vertex AI &amp; managed services</div>
+            <div class="module-sub">Agent Builder, Model Garden, Pipelines, Evaluation Service</div>
+          </div>
+          <div class="module-tags"><span class="tag tag-cert">cert: Vertex AI</span><span class="tag tag-gcp">Agent Builder</span><span class="tag tag-gcp">Model Garden</span><span class="tag tag-week">~22 hrs</span></div>
+          <div class="expand-icon">+</div>
+        </div>
+        <div class="module-detail">
+          <div class="detail-grid">
+            <div>
+              <div class="detail-col-label">What you'll learn</div>
+              <ul class="detail-list">
+                <li>Vertex AI Agent Builder vs DIY ADK trade-offs</li>
+                <li>Grounding with Google Search on Vertex AI</li>
+                <li>Model Garden: Gemini models, open models</li>
+                <li>Vertex AI Pipelines for batch agent jobs</li>
+                <li>Evaluation Service: automatic agent evals</li>
+                <li>Responsible AI: safety filters, PII redaction</li>
+                <li>Cost optimisation: model selection, caching</li>
+              </ul>
+            </div>
+            <div>
+              <div class="detail-col-label">Notebooks</div>
+              <ul class="detail-list">
+                <li>01_agent_builder_vs_adk.ipynb</li>
+                <li>02_grounding_with_search.ipynb</li>
+                <li>03_model_garden.ipynb</li>
+                <li>04_vertex_pipelines.ipynb</li>
+                <li>05_evaluation_service.ipynb</li>
+                <li>06_responsible_ai.ipynb</li>
+              </ul>
+            </div>
+          </div>
+          <div class="cert-box">
+            <div class="cert-eyebrow">Cloud GenAI Engineer cert alignment</div>
+            <div class="cert-text">Vertex AI is the heart of the GenAI Engineer exam — this module prepares you for all Vertex-specific questions.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    </main>
+  </div><!-- end course-c1 -->
+
+
+  <!-- ══ COURSE 2 — LangChain & LangGraph ══ -->
+  <div id="course-c2" class="course-panel">
+    <div class="progress-section">
+      <span class="progress-label">Course 2 progress</span>
+      <div class="progress-track"><div class="progress-fill" id="prog-fill-c2"></div></div>
+      <span class="progress-count"><span id="prog-done-c2">0</span> / 6 completed</span>
+    </div>
+    <div class="legend">
+      <span class="leg"><span class="leg-dot" style="background:var(--lg-color)"></span>LangGraph</span>
+      <span class="leg"><span class="leg-dot" style="background:var(--proj-color)"></span>project</span>
+      <span class="leg"><span class="leg-dot" style="background:var(--gcp-color)"></span>GCP / Vertex</span>
+      <span class="leg"><span class="leg-dot" style="background:var(--mcp-color)"></span>integration</span>
+    </div>
+    <main class="main">
+
+    <div style="background:var(--bg3);border:1px solid rgba(167,139,250,.2);border-radius:10px;padding:1rem 1.25rem;margin-bottom:1.5rem">
+      <div style="font-family:'DM Mono',monospace;font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--lg-color);margin-bottom:.4rem">LangGraph v1.0</div>
+      <div style="font-size:13px;color:var(--muted);line-height:1.6">Covers the full LangGraph deep dive: Command · interrupt() · cross-thread Store · node caching · deferred nodes · pre/post model hooks · type-safe streaming v2. 6 modules · 18 notebooks.</div>
+    </div>
+
+    <!-- Phase 1: Foundations -->
+    <div class="phase">
+      <div class="phase-header lg-phase-header">
+        <span class="phase-num">PHASE 01</span>
+        <span class="phase-title">LangChain Foundations</span>
+        <span class="phase-weeks">Week 1</span>
+      </div>
+
+      <div class="module lg-item" id="mod-c2-01">
+        <div class="module-header" onclick="toggleModule('mod-c2-01')">
+          <label class="check-wrap" onclick="event.stopPropagation()">
+            <input type="checkbox" onchange="toggleDone('mod-c2-01',this.checked,'c2')">
+            <div class="check-box"><svg class="check-icon" viewBox="0 0 12 12" fill="none"><polyline points="1.5,6.5 4.5,9.5 10.5,3" stroke="var(--accent)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+          </label>
+          <span class="module-num">01</span>
+          <div class="module-title-group">
+            <div class="module-title">LangChain foundations &amp; LCEL</div>
+            <div class="module-sub">Chains, prompt templates, LCEL Runnables, tool integration, LangSmith tracing</div>
+          </div>
+          <div class="module-tags"><span class="tag tag-lg">LangChain</span><span class="tag tag-week">~20 hrs</span></div>
+          <div class="expand-icon">+</div>
+        </div>
+        <div class="module-detail">
+          <div class="detail-grid">
+            <div>
+              <div class="detail-col-label">What you'll learn</div>
+              <ul class="detail-list">
+                <li>LangChain Expression Language (LCEL)</li>
+                <li>Runnables: invoke, stream, batch, astream</li>
+                <li>Prompt templates — ChatPromptTemplate, MessagesPlaceholder</li>
+                <li>Output parsers: StrOutputParser, PydanticOutputParser</li>
+                <li>Chat models: ChatOpenAI, ChatVertexAI</li>
+                <li>Tool integration with @tool decorator</li>
+                <li>LangSmith tracing setup and project tracking</li>
+                <li>Conversation memory with ConversationBufferMemory</li>
+              </ul>
+            </div>
+            <div>
+              <div class="detail-col-label">Notebooks</div>
+              <ul class="detail-list">
+                <li>01_lcel_basics.ipynb — pipe operator, chain anatomy</li>
+                <li>02_runnable_chain.ipynb — batch, stream, ainvoke</li>
+                <li>03_tool_integration.ipynb — tool decorator, binding</li>
+              </ul>
+            </div>
+          </div>
+          <div class="lg-box">
+            <div class="lg-eyebrow">Why LangChain first</div>
+            <div class="lg-text">LangChain components (chat models, tools, prompts, output parsers) are the building blocks used inside LangGraph nodes. Understanding LCEL makes graph nodes intuitive to write.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Phase 2: LangGraph Deep Dive -->
+    <div class="phase">
+      <div class="phase-header lg-phase-header">
+        <span class="phase-num">PHASE 02</span>
+        <span class="phase-title">LangGraph Deep Dive</span>
+        <span class="phase-weeks">Weeks 2–6</span>
+      </div>
+
+      <div class="module lg-item" id="mod-c2-02">
+        <div class="module-header" onclick="toggleModule('mod-c2-02')">
+          <label class="check-wrap" onclick="event.stopPropagation()">
+            <input type="checkbox" onchange="toggleDone('mod-c2-02',this.checked,'c2')">
+            <div class="check-box"><svg class="check-icon" viewBox="0 0 12 12" fill="none"><polyline points="1.5,6.5 4.5,9.5 10.5,3" stroke="var(--accent)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+          </label>
+          <span class="module-num">02</span>
+          <div class="module-title-group">
+            <div class="module-title">Graph primitives</div>
+            <div class="module-sub">StateGraph · nodes · edges · conditional routing · ToolNode · ReAct loop</div>
+          </div>
+          <div class="module-tags"><span class="tag tag-lg">LangGraph</span><span class="tag tag-week">~22 hrs</span></div>
+          <div class="expand-icon">+</div>
+        </div>
+        <div class="module-detail">
+          <div class="detail-grid">
+            <div>
+              <div class="detail-col-label">What you'll learn</div>
+              <ul class="detail-list">
+                <li>StateGraph: defining state with TypedDict</li>
+                <li>Reducers — annotated state fields</li>
+                <li>Nodes: functions and Runnables as graph nodes</li>
+                <li>Edges: unconditional and conditional routing</li>
+                <li>add_conditional_edges and END terminal</li>
+                <li>ToolNode — automatic tool execution in graph</li>
+                <li>ReAct loop pattern in LangGraph</li>
+                <li>Graph compilation and invocation</li>
+              </ul>
+            </div>
+            <div>
+              <div class="detail-col-label">Notebooks</div>
+              <ul class="detail-list">
+                <li>01_state_graph.ipynb — TypedDict, reducers, state</li>
+                <li>02_edges_routing.ipynb — add_conditional_edges, END</li>
+                <li>03_react_toolnode.ipynb — ToolNode, ReAct loop</li>
+              </ul>
+            </div>
+          </div>
+          <div class="lg-box">
+            <div class="lg-eyebrow">Core pattern</div>
+            <div class="lg-text">StateGraph is the foundation of everything in LangGraph. Once you understand how state flows through nodes and edges, all other patterns follow naturally.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="module lg-item" id="mod-c2-03">
+        <div class="module-header" onclick="toggleModule('mod-c2-03')">
+          <label class="check-wrap" onclick="event.stopPropagation()">
+            <input type="checkbox" onchange="toggleDone('mod-c2-03',this.checked,'c2')">
+            <div class="check-box"><svg class="check-icon" viewBox="0 0 12 12" fill="none"><polyline points="1.5,6.5 4.5,9.5 10.5,3" stroke="var(--accent)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+          </label>
+          <span class="module-num">03</span>
+          <div class="module-title-group">
+            <div class="module-title">Persistence &amp; memory</div>
+            <div class="module-sub">Checkpointers · BaseStore · cross-thread memory · time travel</div>
+          </div>
+          <div class="module-tags"><span class="tag tag-lg">LangGraph</span><span class="tag tag-week">~20 hrs</span></div>
+          <div class="expand-icon">+</div>
+        </div>
+        <div class="module-detail">
+          <div class="detail-grid">
+            <div>
+              <div class="detail-col-label">What you'll learn</div>
+              <ul class="detail-list">
+                <li>MemorySaver — in-memory checkpointing</li>
+                <li>SqliteSaver — persistent disk checkpoints</li>
+                <li>Thread IDs and cross-run state persistence</li>
+                <li>InMemoryStore — cross-thread key-value storage</li>
+                <li>Namespace keys for memory organisation</li>
+                <li>Cross-thread memory: sharing facts across sessions</li>
+                <li>Time travel: get_state, update_state</li>
+                <li>Forking graph execution at a checkpoint</li>
+              </ul>
+            </div>
+            <div>
+              <div class="detail-col-label">Notebooks</div>
+              <ul class="detail-list">
+                <li>01_checkpointers.ipynb — MemorySaver, SqliteSaver</li>
+                <li>02_base_store.ipynb — InMemoryStore, namespace keys</li>
+                <li>03_time_travel.ipynb — get_state, update_state, fork</li>
+              </ul>
+            </div>
+          </div>
+          <div class="lg-box">
+            <div class="lg-eyebrow">LangGraph v1.0 feature</div>
+            <div class="lg-text">The cross-thread Store is a LangGraph v1.0 addition — it separates short-term thread memory (checkpointer) from long-term cross-session memory (store), enabling agents that remember across conversations.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="module lg-item" id="mod-c2-04">
+        <div class="module-header" onclick="toggleModule('mod-c2-04')">
+          <label class="check-wrap" onclick="event.stopPropagation()">
+            <input type="checkbox" onchange="toggleDone('mod-c2-04',this.checked,'c2')">
+            <div class="check-box"><svg class="check-icon" viewBox="0 0 12 12" fill="none"><polyline points="1.5,6.5 4.5,9.5 10.5,3" stroke="var(--accent)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+          </label>
+          <span class="module-num">04</span>
+          <div class="module-title-group">
+            <div class="module-title">Multi-agent patterns</div>
+            <div class="module-sub">Supervisor · subgraphs · handoffs · Command · edgeless flow</div>
+          </div>
+          <div class="module-tags"><span class="tag tag-lg">LangGraph</span><span class="tag tag-proj">patterns</span><span class="tag tag-week">~28 hrs</span></div>
+          <div class="expand-icon">+</div>
+        </div>
+        <div class="module-detail">
+          <div class="detail-grid">
+            <div>
+              <div class="detail-col-label">What you'll learn</div>
+              <ul class="detail-list">
+                <li>Supervisor: Router + worker agent pattern</li>
+                <li>Subgraphs: nested state and compile</li>
+                <li>Handoffs: transfer_to for agent switching</li>
+                <li>Swarm pattern — peer-to-peer agent handoffs</li>
+                <li>Command object — edgeless flow control</li>
+                <li>Command for routing + state updates simultaneously</li>
+                <li>Deferred nodes (v1.0) for async scheduling</li>
+                <li>Pre/post model hooks for observability</li>
+              </ul>
+            </div>
+            <div>
+              <div class="detail-col-label">Notebooks</div>
+              <ul class="detail-list">
+                <li>01_supervisor.ipynb — Router, worker agents</li>
+                <li>02_subgraphs.ipynb — Nested state, compile</li>
+                <li>03_handoffs.ipynb — transfer_to, swarm</li>
+                <li>04_command.ipynb — Command, edgeless flow</li>
+              </ul>
+            </div>
+          </div>
+          <div class="lg-box">
+            <div class="lg-eyebrow">LangGraph v1.0 feature</div>
+            <div class="lg-text">Command is a v1.0 addition that lets a node specify both the next node AND a state update in one return value — eliminating the need for conditional edges in many patterns. It unlocks the swarm architecture.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="module lg-item" id="mod-c2-05">
+        <div class="module-header" onclick="toggleModule('mod-c2-05')">
+          <label class="check-wrap" onclick="event.stopPropagation()">
+            <input type="checkbox" onchange="toggleDone('mod-c2-05',this.checked,'c2')">
+            <div class="check-box"><svg class="check-icon" viewBox="0 0 12 12" fill="none"><polyline points="1.5,6.5 4.5,9.5 10.5,3" stroke="var(--accent)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+          </label>
+          <span class="module-num">05</span>
+          <div class="module-title-group">
+            <div class="module-title">Streaming &amp; human-in-the-loop</div>
+            <div class="module-sub">Stream modes · interrupt() · resume · approval workflows · async FastAPI SSE</div>
+          </div>
+          <div class="module-tags"><span class="tag tag-lg">LangGraph</span><span class="tag tag-proj">deploy</span><span class="tag tag-week">~22 hrs</span></div>
+          <div class="expand-icon">+</div>
+        </div>
+        <div class="module-detail">
+          <div class="detail-grid">
+            <div>
+              <div class="detail-col-label">What you'll learn</div>
+              <ul class="detail-list">
+                <li>Stream modes: values, updates, messages</li>
+                <li>Type-safe streaming v2 (LangGraph v1.0)</li>
+                <li>interrupt() — pause graph at any node</li>
+                <li>Resume with Command(resume=...) after HITL</li>
+                <li>Approval workflow: interrupt → human reviews → approve/reject</li>
+                <li>async astream for non-blocking streaming</li>
+                <li>SSE endpoint with FastAPI + astream</li>
+                <li>Node caching to skip expensive recomputation</li>
+              </ul>
+            </div>
+            <div>
+              <div class="detail-col-label">Notebooks</div>
+              <ul class="detail-list">
+                <li>01_stream_modes.ipynb — values, updates, messages</li>
+                <li>02_interrupt_hitl.ipynb — interrupt(), resume, approve</li>
+                <li>03_async_fastapi.ipynb — async astream, SSE endpoint</li>
+              </ul>
+            </div>
+          </div>
+          <div class="lg-box">
+            <div class="lg-eyebrow">LangGraph v1.0 streaming</div>
+            <div class="lg-text">Type-safe streaming v2 makes it easy to filter stream events by type — emit only AI tokens, or only tool results, without parsing raw dicts. Pairs with node caching to avoid re-running expensive nodes on resume.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="module lg-item" id="mod-c2-06">
+        <div class="module-header" onclick="toggleModule('mod-c2-06')">
+          <label class="check-wrap" onclick="event.stopPropagation()">
+            <input type="checkbox" onchange="toggleDone('mod-c2-06',this.checked,'c2')">
+            <div class="check-box"><svg class="check-icon" viewBox="0 0 12 12" fill="none"><polyline points="1.5,6.5 4.5,9.5 10.5,3" stroke="var(--accent)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+          </label>
+          <span class="module-num">06</span>
+          <div class="module-title-group">
+            <div class="module-title">LangGraph + ADK integration</div>
+            <div class="module-sub">Gemini in graphs · ChatVertexAI · ADK tools as nodes · VertexAI memory bridge</div>
+          </div>
+          <div class="module-tags"><span class="tag tag-lg">LangGraph</span><span class="tag tag-gcp">Vertex AI</span><span class="tag tag-week">~18 hrs</span></div>
+          <div class="expand-icon">+</div>
+        </div>
+        <div class="module-detail">
+          <div class="detail-grid">
+            <div>
+              <div class="detail-col-label">What you'll learn</div>
+              <ul class="detail-list">
+                <li>ChatVertexAI as a LangGraph node model</li>
+                <li>Gemini function calling inside graph nodes</li>
+                <li>ADK tools wrapped as LangGraph ToolNode</li>
+                <li>VertexAIMemoryBankService for cross-session memory</li>
+                <li>Hybrid architecture: LangGraph supervisor + ADK workers</li>
+                <li>Bridging LangGraph state to ADK session state</li>
+                <li>Deploying LangGraph app on Cloud Run</li>
+              </ul>
+            </div>
+            <div>
+              <div class="detail-col-label">Notebooks</div>
+              <ul class="detail-list">
+                <li>01_gemini_in_graph.ipynb — ChatVertexAI, ADK tools as nodes</li>
+                <li>02_adk_memory_bridge.ipynb — VertexAIMemoryBankService, hybrid</li>
+              </ul>
+            </div>
+          </div>
+          <div class="lg-box">
+            <div class="lg-eyebrow">Capstone bridge</div>
+            <div class="lg-text">This module bridges Course 1 (ADK) and Course 2 (LangGraph) — the capstone projects use exactly this hybrid architecture. A LangGraph supervisor routes to ADK specialist agents, all sharing state through VertexAI memory.</div>
+          </div>
+          <div class="cert-box">
+            <div class="cert-eyebrow">Cloud GenAI Engineer cert alignment</div>
+            <div class="cert-text">Vertex AI integration and multi-framework orchestration are increasingly tested. VertexAIMemoryBankService is a key Vertex AI Agents feature.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    </main>
+  </div><!-- end course-c2 -->
+
+
+  <!-- ══ COURSE 3 — Local LLMs & Internals ══ -->
+  <div id="course-c3" class="course-panel">
+    <div class="progress-section">
+      <span class="progress-label">Course 3 progress</span>
+      <div class="progress-track"><div class="progress-fill" id="prog-fill-c3"></div></div>
+      <span class="progress-count"><span id="prog-done-c3">0</span> / 8 completed</span>
+    </div>
+    <div class="legend">
+      <span class="leg"><span class="leg-dot" style="background:var(--local-color)"></span>local LLM</span>
+      <span class="leg"><span class="leg-dot" style="background:var(--proj-color)"></span>project</span>
+      <span class="leg"><span class="leg-dot" style="background:var(--muted)"></span>internals</span>
+    </div>
+    <main class="main">
+
+    <div style="background:var(--bg3);border:1px solid rgba(126,184,247,.2);border-radius:10px;padding:1rem 1.25rem;margin-bottom:1.5rem">
+      <div style="font-family:'DM Mono',monospace;font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--local-color);margin-bottom:.4rem">prerequisite</div>
+      <div style="font-size:13px;color:var(--muted);line-height:1.6">Complete Courses 1 and 2 before starting Course 3. By then you'll have two live production systems — Course 3 teaches you to run the same systems with local models at zero inference cost, and understand every optimisation that makes them fast.</div>
+    </div>
+
+    <!-- Track A -->
+    <div class="phase">
+      <div class="phase-header c3-phase-header">
+        <span class="phase-num">TRACK A</span>
+        <span class="phase-title">Local LLMs &amp; serving</span>
+        <span class="phase-weeks">Weeks 1–5</span>
+      </div>
+
+      <div class="module c3-item" id="mod-c3-01">
+        <div class="module-header" onclick="toggleModule('mod-c3-01')">
+          <label class="check-wrap" onclick="event.stopPropagation()">
+            <input type="checkbox" onchange="toggleDone('mod-c3-01',this.checked,'c3')">
+            <div class="check-box"><svg class="check-icon" viewBox="0 0 12 12" fill="none"><polyline points="1.5,6.5 4.5,9.5 10.5,3" stroke="var(--accent)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+          </label>
+          <span class="module-num">A1</span>
+          <div class="module-title-group">
+            <div class="module-title">Ollama — local model setup &amp; basics</div>
+            <div class="module-sub">Run LLMs locally, model formats, quantisation levels, API compatibility</div>
+          </div>
+          <div class="module-tags"><span class="tag tag-local">Ollama</span><span class="tag tag-week">~20 hrs</span></div>
+          <div class="expand-icon">+</div>
+        </div>
+        <div class="module-detail">
+          <div class="detail-grid">
+            <div>
+              <div class="detail-col-label">What you'll learn</div>
+              <ul class="detail-list">
+                <li>Ollama installation, model pull, model run</li>
+                <li>Model formats: GGUF, safetensors, GGML</li>
+                <li>Quantisation levels: Q4_K_M, Q8_0, F16 — trade-offs</li>
+                <li>Ollama REST API — OpenAI-compatible endpoints</li>
+                <li>Swapping Gemini for Ollama in ADK agents</li>
+                <li>Hardware requirements: RAM, VRAM, CPU fallback</li>
+                <li>Model selection: Llama 3, Mistral, Phi-3, Gemma</li>
+              </ul>
+            </div>
+            <div>
+              <div class="detail-col-label">Notebooks</div>
+              <ul class="detail-list">
+                <li>01_ollama_setup.ipynb</li>
+                <li>02_model_formats.ipynb</li>
+                <li>03_quantisation_comparison.ipynb</li>
+                <li>04_ollama_with_adk.ipynb</li>
+              </ul>
+            </div>
+          </div>
+          <div class="c3-note">
+            <div class="c3-note-label">Capstone connection</div>
+            <div class="c3-note-text">Swap the ADK agent model from gemini-flash to a local Ollama model. Same agent code, zero inference cost.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="module c3-item" id="mod-c3-02">
+        <div class="module-header" onclick="toggleModule('mod-c3-02')">
+          <label class="check-wrap" onclick="event.stopPropagation()">
+            <input type="checkbox" onchange="toggleDone('mod-c3-02',this.checked,'c3')">
+            <div class="check-box"><svg class="check-icon" viewBox="0 0 12 12" fill="none"><polyline points="1.5,6.5 4.5,9.5 10.5,3" stroke="var(--accent)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+          </label>
+          <span class="module-num">A2</span>
+          <div class="module-title-group">
+            <div class="module-title">HuggingFace transformers — raw model access</div>
+            <div class="module-sub">Loading models, tokenizers, inference pipelines, fine-tuning basics</div>
+          </div>
+          <div class="module-tags"><span class="tag tag-local">HuggingFace</span><span class="tag tag-week">~25 hrs</span></div>
+          <div class="expand-icon">+</div>
+        </div>
+        <div class="module-detail">
+          <div class="detail-grid">
+            <div>
+              <div class="detail-col-label">What you'll learn</div>
+              <ul class="detail-list">
+                <li>transformers library — AutoModel, AutoTokenizer</li>
+                <li>Pipeline API for inference tasks</li>
+                <li>Loading models from Hub in safetensors format</li>
+                <li>Tokenisation deep dive — BPE, SentencePiece</li>
+                <li>Generation config: temperature, top-p, top-k</li>
+                <li>PEFT and LoRA fine-tuning basics</li>
+                <li>Saving and serving custom checkpoints</li>
+              </ul>
+            </div>
+            <div>
+              <div class="detail-col-label">Notebooks</div>
+              <ul class="detail-list">
+                <li>01_hf_transformers_basics.ipynb</li>
+                <li>02_tokenisation_deep_dive.ipynb</li>
+                <li>03_generation_config.ipynb</li>
+                <li>04_lora_finetuning.ipynb</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="module c3-item" id="mod-c3-03">
+        <div class="module-header" onclick="toggleModule('mod-c3-03')">
+          <label class="check-wrap" onclick="event.stopPropagation()">
+            <input type="checkbox" onchange="toggleDone('mod-c3-03',this.checked,'c3')">
+            <div class="check-box"><svg class="check-icon" viewBox="0 0 12 12" fill="none"><polyline points="1.5,6.5 4.5,9.5 10.5,3" stroke="var(--accent)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+          </label>
+          <span class="module-num">A3</span>
+          <div class="module-title-group">
+            <div class="module-title">vLLM — production inference server</div>
+            <div class="module-sub">High-throughput serving, PagedAttention, continuous batching</div>
+          </div>
+          <div class="module-tags"><span class="tag tag-local">vLLM</span><span class="tag tag-proj">deploy</span><span class="tag tag-week">~22 hrs</span></div>
+          <div class="expand-icon">+</div>
+        </div>
+        <div class="module-detail">
+          <div class="detail-grid">
+            <div>
+              <div class="detail-col-label">What you'll learn</div>
+              <ul class="detail-list">
+                <li>vLLM setup and model loading</li>
+                <li>OpenAI-compatible API server</li>
+                <li>PagedAttention — memory management for batches</li>
+                <li>Continuous batching vs static batching</li>
+                <li>Tensor parallelism across GPUs</li>
+                <li>Benchmarking throughput and latency</li>
+                <li>Deploying vLLM on Cloud Run GPU instances</li>
+              </ul>
+            </div>
+            <div>
+              <div class="detail-col-label">Notebooks</div>
+              <ul class="detail-list">
+                <li>01_vllm_setup.ipynb</li>
+                <li>02_paged_attention.ipynb</li>
+                <li>03_continuous_batching.ipynb</li>
+                <li>04_vllm_cloud_run.ipynb</li>
+              </ul>
+            </div>
+          </div>
+          <div class="c3-note">
+            <div class="c3-note-label">Capstone connection</div>
+            <div class="c3-note-text">Replace Gemini API calls in the capstone projects with a self-hosted vLLM server. Benchmark cost and latency vs Gemini. Target: 10x cost reduction for Flash-tier tasks.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="module c3-item" id="mod-c3-04">
+        <div class="module-header" onclick="toggleModule('mod-c3-04')">
+          <label class="check-wrap" onclick="event.stopPropagation()">
+            <input type="checkbox" onchange="toggleDone('mod-c3-04',this.checked,'c3')">
+            <div class="check-box"><svg class="check-icon" viewBox="0 0 12 12" fill="none"><polyline points="1.5,6.5 4.5,9.5 10.5,3" stroke="var(--accent)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+          </label>
+          <span class="module-num">A4</span>
+          <div class="module-title-group">
+            <div class="module-title">llama.cpp — C++ inference &amp; max control</div>
+            <div class="module-sub">GGUF format, CPU inference, metal/CUDA backends, server mode</div>
+          </div>
+          <div class="module-tags"><span class="tag tag-local">llama.cpp</span><span class="tag tag-week">~18 hrs</span></div>
+          <div class="expand-icon">+</div>
+        </div>
+        <div class="module-detail">
+          <div class="detail-grid">
+            <div>
+              <div class="detail-col-label">What you'll learn</div>
+              <ul class="detail-list">
+                <li>llama.cpp build, GGUF model loading</li>
+                <li>CPU vs Metal vs CUDA backends</li>
+                <li>Context window management at the C++ level</li>
+                <li>llama.cpp server — HTTP API mode</li>
+                <li>Python bindings via llama-cpp-python</li>
+                <li>Grammar-constrained generation (structured output)</li>
+                <li>Embedding generation with llama.cpp</li>
+              </ul>
+            </div>
+            <div>
+              <div class="detail-col-label">Notebooks</div>
+              <ul class="detail-list">
+                <li>01_llamacpp_setup.ipynb</li>
+                <li>02_gguf_deep_dive.ipynb</li>
+                <li>03_server_mode.ipynb</li>
+                <li>04_grammar_constrained_output.ipynb</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Track B -->
+    <div class="phase">
+      <div class="phase-header c3-phase-header">
+        <span class="phase-num">TRACK B</span>
+        <span class="phase-title">LLM internals &amp; optimisation</span>
+        <span class="phase-weeks">Weeks 6–10</span>
+      </div>
+
+      <div class="module c3-item" id="mod-c3-05">
+        <div class="module-header" onclick="toggleModule('mod-c3-05')">
+          <label class="check-wrap" onclick="event.stopPropagation()">
+            <input type="checkbox" onchange="toggleDone('mod-c3-05',this.checked,'c3')">
+            <div class="check-box"><svg class="check-icon" viewBox="0 0 12 12" fill="none"><polyline points="1.5,6.5 4.5,9.5 10.5,3" stroke="var(--accent)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+          </label>
+          <span class="module-num">B1</span>
+          <div class="module-title-group">
+            <div class="module-title">Attention internals &amp; KV cache</div>
+            <div class="module-sub">Self-attention, multi-head, KV cache mechanics, Flash Attention, RoPE</div>
+          </div>
+          <div class="module-tags"><span class="tag tag-week">internals</span><span class="tag tag-week">~25 hrs</span></div>
+          <div class="expand-icon">+</div>
+        </div>
+        <div class="module-detail">
+          <div class="detail-grid">
+            <div>
+              <div class="detail-col-label">What you'll learn</div>
+              <ul class="detail-list">
+                <li>Self-attention mechanism from scratch (numpy)</li>
+                <li>Multi-head attention — why multiple heads</li>
+                <li>KV cache: what it stores, why it speeds up generation</li>
+                <li>KV cache memory footprint calculations</li>
+                <li>Context window management strategies</li>
+                <li>Sliding window attention for long contexts</li>
+                <li>Flash attention — IO-aware exact attention</li>
+                <li>RoPE positional encodings</li>
+              </ul>
+            </div>
+            <div>
+              <div class="detail-col-label">Notebooks</div>
+              <ul class="detail-list">
+                <li>01_attention_from_scratch.ipynb</li>
+                <li>02_kv_cache_mechanics.ipynb</li>
+                <li>03_context_window_management.ipynb</li>
+                <li>04_flash_attention.ipynb</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="module c3-item" id="mod-c3-06">
+        <div class="module-header" onclick="toggleModule('mod-c3-06')">
+          <label class="check-wrap" onclick="event.stopPropagation()">
+            <input type="checkbox" onchange="toggleDone('mod-c3-06',this.checked,'c3')">
+            <div class="check-box"><svg class="check-icon" viewBox="0 0 12 12" fill="none"><polyline points="1.5,6.5 4.5,9.5 10.5,3" stroke="var(--accent)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+          </label>
+          <span class="module-num">B2</span>
+          <div class="module-title-group">
+            <div class="module-title">Quantisation deep dive</div>
+            <div class="module-sub">INT8, INT4, GPTQ, AWQ, GGUF quantisation formats and trade-offs</div>
+          </div>
+          <div class="module-tags"><span class="tag tag-week">internals</span><span class="tag tag-local">GGUF</span><span class="tag tag-week">~20 hrs</span></div>
+          <div class="expand-icon">+</div>
+        </div>
+        <div class="module-detail">
+          <div class="detail-grid">
+            <div>
+              <div class="detail-col-label">What you'll learn</div>
+              <ul class="detail-list">
+                <li>INT8 quantisation — symmetric vs asymmetric</li>
+                <li>INT4 quantisation — weight-only vs activation</li>
+                <li>GPTQ: post-training quantisation with calibration data</li>
+                <li>AWQ: activation-aware weight quantisation</li>
+                <li>GGUF quantisation levels: Q2_K through Q8_0</li>
+                <li>Quality vs model size vs throughput trade-offs</li>
+                <li>Benchmarking quantised vs full-precision models</li>
+                <li>Choosing the right quantisation for your hardware</li>
+              </ul>
+            </div>
+            <div>
+              <div class="detail-col-label">Notebooks</div>
+              <ul class="detail-list">
+                <li>01_int8_quantisation.ipynb</li>
+                <li>02_gptq_calibration.ipynb</li>
+                <li>03_awq_vs_gptq.ipynb</li>
+                <li>04_gguf_formats.ipynb</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="module c3-item" id="mod-c3-07">
+        <div class="module-header" onclick="toggleModule('mod-c3-07')">
+          <label class="check-wrap" onclick="event.stopPropagation()">
+            <input type="checkbox" onchange="toggleDone('mod-c3-07',this.checked,'c3')">
+            <div class="check-box"><svg class="check-icon" viewBox="0 0 12 12" fill="none"><polyline points="1.5,6.5 4.5,9.5 10.5,3" stroke="var(--accent)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+          </label>
+          <span class="module-num">B3</span>
+          <div class="module-title-group">
+            <div class="module-title">Inference optimisation techniques</div>
+            <div class="module-sub">Speculative decoding, continuous batching, PagedAttention, throughput tuning</div>
+          </div>
+          <div class="module-tags"><span class="tag tag-week">internals</span><span class="tag tag-local">vLLM</span><span class="tag tag-week">~22 hrs</span></div>
+          <div class="expand-icon">+</div>
+        </div>
+        <div class="module-detail">
+          <div class="detail-grid">
+            <div>
+              <div class="detail-col-label">What you'll learn</div>
+              <ul class="detail-list">
+                <li>Speculative decoding — draft model + verifier</li>
+                <li>Continuous batching — why it beats static batching</li>
+                <li>PagedAttention — virtual memory for KV cache</li>
+                <li>Tensor parallelism and pipeline parallelism</li>
+                <li>Prefill vs decode phase optimisation</li>
+                <li>Throughput vs latency trade-offs</li>
+                <li>Benchmarking with vLLM benchmark tools</li>
+              </ul>
+            </div>
+            <div>
+              <div class="detail-col-label">Notebooks</div>
+              <ul class="detail-list">
+                <li>01_speculative_decoding.ipynb</li>
+                <li>02_continuous_batching.ipynb</li>
+                <li>03_paged_attention_deep_dive.ipynb</li>
+                <li>04_throughput_benchmarking.ipynb</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="module c3-item" id="mod-c3-08">
+        <div class="module-header" onclick="toggleModule('mod-c3-08')">
+          <label class="check-wrap" onclick="event.stopPropagation()">
+            <input type="checkbox" onchange="toggleDone('mod-c3-08',this.checked,'c3')">
+            <div class="check-box"><svg class="check-icon" viewBox="0 0 12 12" fill="none"><polyline points="1.5,6.5 4.5,9.5 10.5,3" stroke="var(--accent)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+          </label>
+          <span class="module-num">B4</span>
+          <div class="module-title-group">
+            <div class="module-title">Capstone upgrade — local model swap</div>
+            <div class="module-sub">Replace Gemini with local vLLM in both capstone projects, benchmark cost vs quality</div>
+          </div>
+          <div class="module-tags"><span class="tag tag-proj">upgrade</span><span class="tag tag-local">vLLM</span><span class="tag tag-week">~20 hrs</span></div>
+          <div class="expand-icon">+</div>
+        </div>
+        <div class="module-detail">
+          <div class="detail-grid">
+            <div>
+              <div class="detail-col-label">What you'll build</div>
+              <ul class="detail-list">
+                <li>Model abstraction layer — swap backend with config</li>
+                <li>vLLM server deployed on Cloud Run GPU instance</li>
+                <li>Trade Research Assistant on local Llama 3</li>
+                <li>Earnings Analyser on local Mistral</li>
+                <li>Cost comparison: Gemini vs local</li>
+                <li>Quality benchmark: outputs side by side</li>
+              </ul>
+            </div>
+            <div>
+              <div class="detail-col-label">Expected outcomes</div>
+              <ul class="detail-list">
+                <li>10x cost reduction for Flash-tier tasks</li>
+                <li>Full data privacy — no data leaves your infra</li>
+                <li>Latency comparison documented</li>
+                <li>GitHub Pages updated with local model demo</li>
+              </ul>
+            </div>
+          </div>
+          <div class="c3-note">
+            <div class="c3-note-label">Course 3 finale</div>
+            <div class="c3-note-text">Two production systems running on local models, fully understood from the token up. The model abstraction layer is a reusable pattern for any future project.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    </main>
+  </div><!-- end course-c3 -->
+
+</div><!-- end tab-gen-ai -->
+
+
+<!-- ══════════════════════════════════════════════════════════════════════
+     MAIN PANEL: DEEP LEARNING & NEURAL NETWORKS
+════════════════════════════════════════════════════════════════════════ -->
+<div id="tab-deep-learning" class="main-panel">
+  <div class="coming-soon">
+    <div class="coming-soon-icon">◎</div>
+    <div class="coming-soon-title">Deep Learning &amp; <em>Neural Networks</em></div>
+    <p class="coming-soon-sub">Curriculum coming soon. Will cover transformers from scratch, backpropagation, CNNs, training infrastructure, and PyTorch fundamentals.</p>
+    <div class="coming-soon-pills">
+      <span class="pill pill-blue">Transformers from scratch</span>
+      <span class="pill pill-green">PyTorch training</span>
+      <span class="pill pill-coral">CNNs &amp; vision</span>
+      <span class="pill pill-amber">Training infra</span>
+    </div>
+  </div>
 </div>
 
-<div class="legend">
-  <span class="leg"><span class="leg-dot" style="background:var(--local-color)"></span>local LLM</span>
-  <span class="leg"><span class="leg-dot" style="background:var(--proj-color)"></span>project</span>
-  <span class="leg"><span class="leg-dot" style="background:var(--muted)"></span>internals</span>
-</div>
 
-<main class="main">
-
-<div style="background:var(--bg3);border:1px solid rgba(126,184,247,.2);border-radius:10px;padding:1rem 1.25rem;margin-bottom:1.5rem">
-  <div style="font-family:'DM Mono',monospace;font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--local-color);margin-bottom:.4rem">prerequisite</div>
-  <div style="font-size:13px;color:var(--muted);line-height:1.6">Complete Course 1 and both capstone projects before starting Course 2. By then you'll have two live production systems — Course 2 will teach you to run the same systems with local models at zero inference cost, and understand every optimization that makes them fast.</div>
-</div>
-
-<!-- Track A -->
-<div class="phase">
-  <div class="phase-header c2-phase-header">
-    <span class="phase-num">TRACK A</span>
-    <span class="phase-title">Local LLMs &amp; serving</span>
-    <span class="phase-weeks">Weeks 1–5</span>
-  </div>
-
-  <div class="module c2-item" id="mod-c2-01">
-    <div class="module-header" onclick="toggleModule('mod-c2-01')">
-      <label class="check-wrap" onclick="event.stopPropagation()">
-        <input type="checkbox" onchange="toggleDone('mod-c2-01',this.checked,'c2')">
-        <div class="check-box"><svg class="check-icon" viewBox="0 0 12 12" fill="none"><polyline points="1.5,6.5 4.5,9.5 10.5,3" stroke="var(--accent)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
-      </label>
-      <span class="module-num">A1</span>
-      <div class="module-title-group">
-        <div class="module-title">Ollama — local model setup &amp; basics</div>
-        <div class="module-sub">Run LLMs locally, model formats, quantisation levels, API compatibility</div>
-      </div>
-      <div class="module-tags"><span class="tag tag-local">Ollama</span><span class="tag tag-week">~20 hrs</span></div>
-      <div class="expand-icon">+</div>
-    </div>
-    <div class="module-detail">
-      <div class="detail-grid">
-        <div>
-          <div class="detail-col-label">What you'll learn</div>
-          <ul class="detail-list">
-            <li>Ollama installation, model pull, model run</li>
-            <li>Model formats: GGUF, safetensors, GGML</li>
-            <li>Quantisation levels: Q4_K_M, Q8_0, F16 — trade-offs</li>
-            <li>Ollama REST API — OpenAI-compatible endpoints</li>
-            <li>Swapping Gemini for Ollama in ADK agents</li>
-            <li>Hardware requirements: RAM, VRAM, CPU fallback</li>
-            <li>Model selection: Llama 3, Mistral, Phi-3, Gemma</li>
-          </ul>
-        </div>
-        <div>
-          <div class="detail-col-label">Notebooks</div>
-          <ul class="detail-list">
-            <li>01_ollama_setup.ipynb</li>
-            <li>02_model_formats.ipynb</li>
-            <li>03_quantisation_comparison.ipynb</li>
-            <li>04_ollama_with_adk.ipynb</li>
-          </ul>
-        </div>
-      </div>
-      <div class="c2-note">
-        <div class="c2-note-label">Capstone connection</div>
-        <div class="c2-note-text">Swap the ADK agent model from gemini-3.1-flash-lite to a local Ollama model. Same agent code, zero inference cost.</div>
-      </div>
-    </div>
-  </div>
-
-  <div class="module c2-item" id="mod-c2-02">
-    <div class="module-header" onclick="toggleModule('mod-c2-02')">
-      <label class="check-wrap" onclick="event.stopPropagation()">
-        <input type="checkbox" onchange="toggleDone('mod-c2-02',this.checked,'c2')">
-        <div class="check-box"><svg class="check-icon" viewBox="0 0 12 12" fill="none"><polyline points="1.5,6.5 4.5,9.5 10.5,3" stroke="var(--accent)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
-      </label>
-      <span class="module-num">A2</span>
-      <div class="module-title-group">
-        <div class="module-title">HuggingFace transformers — raw model access</div>
-        <div class="module-sub">Loading models, tokenizers, inference pipelines, fine-tuning basics</div>
-      </div>
-      <div class="module-tags"><span class="tag tag-local">HuggingFace</span><span class="tag tag-week">~25 hrs</span></div>
-      <div class="expand-icon">+</div>
-    </div>
-    <div class="module-detail">
-      <div class="detail-grid">
-        <div>
-          <div class="detail-col-label">What you'll learn</div>
-          <ul class="detail-list">
-            <li>transformers library — AutoModel, AutoTokenizer</li>
-            <li>Pipeline API for inference tasks</li>
-            <li>Loading models from Hub in safetensors format</li>
-            <li>Tokenisation deep dive — BPE, SentencePiece</li>
-            <li>Generation config: temperature, top-p, top-k</li>
-            <li>PEFT and LoRA fine-tuning basics</li>
-            <li>Saving and serving custom checkpoints</li>
-          </ul>
-        </div>
-        <div>
-          <div class="detail-col-label">Notebooks</div>
-          <ul class="detail-list">
-            <li>01_hf_transformers_basics.ipynb</li>
-            <li>02_tokenisation_deep_dive.ipynb</li>
-            <li>03_generation_config.ipynb</li>
-            <li>04_lora_finetuning.ipynb</li>
-          </ul>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <div class="module c2-item" id="mod-c2-03">
-    <div class="module-header" onclick="toggleModule('mod-c2-03')">
-      <label class="check-wrap" onclick="event.stopPropagation()">
-        <input type="checkbox" onchange="toggleDone('mod-c2-03',this.checked,'c2')">
-        <div class="check-box"><svg class="check-icon" viewBox="0 0 12 12" fill="none"><polyline points="1.5,6.5 4.5,9.5 10.5,3" stroke="var(--accent)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
-      </label>
-      <span class="module-num">A3</span>
-      <div class="module-title-group">
-        <div class="module-title">vLLM — production inference server</div>
-        <div class="module-sub">High-throughput serving, PagedAttention, continuous batching</div>
-      </div>
-      <div class="module-tags"><span class="tag tag-local">vLLM</span><span class="tag tag-proj">deploy</span><span class="tag tag-week">~22 hrs</span></div>
-      <div class="expand-icon">+</div>
-    </div>
-    <div class="module-detail">
-      <div class="detail-grid">
-        <div>
-          <div class="detail-col-label">What you'll learn</div>
-          <ul class="detail-list">
-            <li>vLLM setup and model loading</li>
-            <li>OpenAI-compatible API server</li>
-            <li>PagedAttention — memory management for batches</li>
-            <li>Continuous batching vs static batching</li>
-            <li>Tensor parallelism across GPUs</li>
-            <li>Benchmarking throughput and latency</li>
-            <li>Deploying vLLM on Cloud Run GPU instances</li>
-          </ul>
-        </div>
-        <div>
-          <div class="detail-col-label">Notebooks</div>
-          <ul class="detail-list">
-            <li>01_vllm_setup.ipynb</li>
-            <li>02_paged_attention.ipynb</li>
-            <li>03_continuous_batching.ipynb</li>
-            <li>04_vllm_cloud_run.ipynb</li>
-          </ul>
-        </div>
-      </div>
-      <div class="c2-note">
-        <div class="c2-note-label">Capstone connection</div>
-        <div class="c2-note-text">Replace Gemini API calls in both capstone projects with a self-hosted vLLM server. Benchmark cost and latency vs Gemini. Target: 10x cost reduction for Flash-tier tasks.</div>
-      </div>
-    </div>
-  </div>
-
-  <div class="module c2-item" id="mod-c2-04">
-    <div class="module-header" onclick="toggleModule('mod-c2-04')">
-      <label class="check-wrap" onclick="event.stopPropagation()">
-        <input type="checkbox" onchange="toggleDone('mod-c2-04',this.checked,'c2')">
-        <div class="check-box"><svg class="check-icon" viewBox="0 0 12 12" fill="none"><polyline points="1.5,6.5 4.5,9.5 10.5,3" stroke="var(--accent)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
-      </label>
-      <span class="module-num">A4</span>
-      <div class="module-title-group">
-        <div class="module-title">llama.cpp — C++ inference &amp; max control</div>
-        <div class="module-sub">GGUF format, CPU inference, metal/CUDA backends, server mode</div>
-      </div>
-      <div class="module-tags"><span class="tag tag-local">llama.cpp</span><span class="tag tag-week">~18 hrs</span></div>
-      <div class="expand-icon">+</div>
-    </div>
-    <div class="module-detail">
-      <div class="detail-grid">
-        <div>
-          <div class="detail-col-label">What you'll learn</div>
-          <ul class="detail-list">
-            <li>llama.cpp build, GGUF model loading</li>
-            <li>CPU vs Metal vs CUDA backends</li>
-            <li>Context window management at the C++ level</li>
-            <li>llama.cpp server — HTTP API mode</li>
-            <li>Python bindings via llama-cpp-python</li>
-            <li>Grammar-constrained generation (structured output)</li>
-            <li>Embedding generation with llama.cpp</li>
-          </ul>
-        </div>
-        <div>
-          <div class="detail-col-label">Notebooks</div>
-          <ul class="detail-list">
-            <li>01_llamacpp_setup.ipynb</li>
-            <li>02_gguf_deep_dive.ipynb</li>
-            <li>03_server_mode.ipynb</li>
-            <li>04_grammar_constrained_output.ipynb</li>
-          </ul>
-        </div>
-      </div>
+<!-- ══════════════════════════════════════════════════════════════════════
+     MAIN PANEL: AI/ML BACKEND ENGINEERING
+════════════════════════════════════════════════════════════════════════ -->
+<div id="tab-ml-backend" class="main-panel">
+  <div class="coming-soon">
+    <div class="coming-soon-icon">◈</div>
+    <div class="coming-soon-title">AI/ML <em>Backend Engineering</em></div>
+    <p class="coming-soon-sub">Curriculum coming soon. Will cover FastAPI for ML services, async patterns, model serving, feature stores, and production ML pipelines.</p>
+    <div class="coming-soon-pills">
+      <span class="pill pill-green">FastAPI &amp; async</span>
+      <span class="pill pill-blue">Model serving</span>
+      <span class="pill pill-coral">Feature stores</span>
+      <span class="pill pill-purple">ML pipelines</span>
     </div>
   </div>
 </div>
 
-<!-- Track B -->
-<div class="phase">
-  <div class="phase-header c2-phase-header">
-    <span class="phase-num">TRACK B</span>
-    <span class="phase-title">LLM internals &amp; optimisation</span>
-    <span class="phase-weeks">Weeks 6–10</span>
+
+<!-- ══════════════════════════════════════════════════════════════════════
+     MAIN PANEL: CAPSTONE PROJECTS & CERTIFICATIONS
+════════════════════════════════════════════════════════════════════════ -->
+<div id="tab-capstone" class="main-panel">
+  <div class="progress-section">
+    <span class="progress-label">Capstone progress</span>
+    <div class="progress-track"><div class="progress-fill" id="prog-fill-cap"></div></div>
+    <span class="progress-count"><span id="prog-done-cap">0</span> / 4 completed</span>
+  </div>
+  <main class="main">
+
+  <!-- Capstone Projects -->
+  <div class="phase">
+    <div class="phase-header cap-phase-header">
+      <span class="phase-num">PROJECTS</span>
+      <span class="phase-title">Capstone Projects</span>
+      <span class="phase-weeks">Weeks 9–13</span>
+    </div>
+
+    <div class="module cap-item" id="mod-cap-01">
+      <div class="module-header" onclick="toggleModule('mod-cap-01')">
+        <label class="check-wrap" onclick="event.stopPropagation()">
+          <input type="checkbox" onchange="toggleDone('mod-cap-01',this.checked,'cap')">
+          <div class="check-box"><svg class="check-icon" viewBox="0 0 12 12" fill="none"><polyline points="1.5,6.5 4.5,9.5 10.5,3" stroke="var(--accent)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        </label>
+        <span class="module-num">P1</span>
+        <div class="module-title-group">
+          <div class="module-title">Capstone 1 — Trade research assistant</div>
+          <div class="module-sub">LangGraph + ADK hybrid · MCP tools · Cloud Run · GitHub Pages</div>
+        </div>
+        <div class="module-tags"><span class="tag tag-proj">capstone</span><span class="tag tag-gcp">full GCP stack</span><span class="tag tag-mcp">FastMCP</span><span class="tag tag-week">~35 hrs</span></div>
+        <div class="expand-icon">+</div>
+      </div>
+      <div class="module-detail">
+        <div class="detail-grid">
+          <div>
+            <div class="detail-col-label">Architecture</div>
+            <ul class="detail-list">
+              <li>LangGraph supervisor — routing, compliance gate</li>
+              <li>ADK market research agent (Gemini Flash)</li>
+              <li>ADK risk analyst agent (Gemini Flash)</li>
+              <li>LangGraph compliance screener (Gemini Pro)</li>
+              <li>ADK report writer agent (Gemini Pro)</li>
+              <li>FastMCP server — all financial data tools</li>
+              <li>Vertex AI Vector Search — SEC filings RAG</li>
+              <li>Firestore — session state + audit log</li>
+            </ul>
+          </div>
+          <div>
+            <div class="detail-col-label">Deployment</div>
+            <ul class="detail-list">
+              <li>Multi-container Cloud Run service</li>
+              <li>FastMCP server as separate Cloud Run service</li>
+              <li>GitHub Actions CI/CD pipeline</li>
+              <li>GitHub Pages demo UI with SSE streaming</li>
+              <li>IAM + Secret Manager for all credentials</li>
+              <li>Cloud Monitoring dashboard</li>
+              <li>Load testing with Locust</li>
+            </ul>
+          </div>
+        </div>
+        <div class="project-box">
+          <div class="proj-eyebrow">Capstone project</div>
+          <div class="proj-title">Trade Research Assistant — live deployed system</div>
+          <div class="proj-desc">User describes a trade idea → system researches stock, analyses risk, runs compliance check, generates structured research brief. Full production system: LangGraph + ADK + FastMCP + Vertex AI + Cloud Run + GitHub Pages.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="module cap-item" id="mod-cap-02">
+      <div class="module-header" onclick="toggleModule('mod-cap-02')">
+        <label class="check-wrap" onclick="event.stopPropagation()">
+          <input type="checkbox" onchange="toggleDone('mod-cap-02',this.checked,'cap')">
+          <div class="check-box"><svg class="check-icon" viewBox="0 0 12 12" fill="none"><polyline points="1.5,6.5 4.5,9.5 10.5,3" stroke="var(--accent)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        </label>
+        <span class="module-num">P2</span>
+        <div class="module-title-group">
+          <div class="module-title">Capstone 2 — Earnings call analyser</div>
+          <div class="module-sub">Transcript ingestion · signal extraction · trade thesis · deployed</div>
+        </div>
+        <div class="module-tags"><span class="tag tag-proj">capstone</span><span class="tag tag-gcp">full GCP stack</span><span class="tag tag-mcp">FastMCP</span><span class="tag tag-week">~35 hrs</span></div>
+        <div class="expand-icon">+</div>
+      </div>
+      <div class="module-detail">
+        <div class="detail-grid">
+          <div>
+            <div class="detail-col-label">Architecture</div>
+            <ul class="detail-list">
+              <li>LangGraph supervisor — document strategy, sequencing</li>
+              <li>ADK transcript ingestion agent (Gemini Flash)</li>
+              <li>ADK signal extractor agent (Gemini Flash)</li>
+              <li>ADK estimates comparator agent (Gemini Flash)</li>
+              <li>ADK thesis writer agent (Gemini Pro)</li>
+              <li>FastMCP server — financial APIs, estimates data</li>
+              <li>Vertex AI Vector Search — historical earnings RAG</li>
+            </ul>
+          </div>
+          <div>
+            <div class="detail-col-label">Deployment</div>
+            <ul class="detail-list">
+              <li>Cloud Run with PDF upload endpoint</li>
+              <li>Reuses FastMCP server from Capstone 1</li>
+              <li>GitHub Actions CI/CD</li>
+              <li>GitHub Pages demo — upload transcript, get thesis</li>
+              <li>Output: PDF trade thesis download</li>
+              <li>Cost per request target: under $0.05</li>
+            </ul>
+          </div>
+        </div>
+        <div class="project-box">
+          <div class="proj-eyebrow">Capstone project</div>
+          <div class="proj-title">Earnings Call Analyser — live deployed system</div>
+          <div class="proj-desc">Upload earnings transcript → system extracts signals, compares estimates, generates bull/bear trade thesis. Full production system with PDF output. Both capstones link from GitHub Pages portfolio.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="module cap-item" id="mod-cap-03">
+      <div class="module-header" onclick="toggleModule('mod-cap-03')">
+        <label class="check-wrap" onclick="event.stopPropagation()">
+          <input type="checkbox" onchange="toggleDone('mod-cap-03',this.checked,'cap')">
+          <div class="check-box"><svg class="check-icon" viewBox="0 0 12 12" fill="none"><polyline points="1.5,6.5 4.5,9.5 10.5,3" stroke="var(--accent)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        </label>
+        <span class="module-num">P3</span>
+        <div class="module-title-group">
+          <div class="module-title">GitHub Pages portfolio &amp; showcase</div>
+          <div class="module-sub">SSE streaming, portfolio site, CI/CD, observability, load testing</div>
+        </div>
+        <div class="module-tags"><span class="tag tag-proj">portfolio</span><span class="tag tag-gcp">Cloud Monitoring</span><span class="tag tag-week">~15 hrs</span></div>
+        <div class="expand-icon">+</div>
+      </div>
+      <div class="module-detail">
+        <div class="detail-grid">
+          <div>
+            <div class="detail-col-label">What you'll build</div>
+            <ul class="detail-list">
+              <li>yourusername.github.io portfolio site</li>
+              <li>Live demo UIs for both capstone projects</li>
+              <li>SSE streaming from Cloud Run to browser</li>
+              <li>GitHub Actions auto-deploy on push</li>
+              <li>API gateway pattern for Cloud Run security</li>
+            </ul>
+          </div>
+          <div>
+            <div class="detail-col-label">Production polish</div>
+            <ul class="detail-list">
+              <li>Load testing with Locust</li>
+              <li>Cloud Monitoring dashboards</li>
+              <li>Cost profiling per request</li>
+              <li>README and architecture docs</li>
+              <li>Cert badge on portfolio once earned</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 
-  <div class="module c2-item" id="mod-c2-05">
-    <div class="module-header" onclick="toggleModule('mod-c2-05')">
-      <label class="check-wrap" onclick="event.stopPropagation()">
-        <input type="checkbox" onchange="toggleDone('mod-c2-05',this.checked,'c2')">
-        <div class="check-box"><svg class="check-icon" viewBox="0 0 12 12" fill="none"><polyline points="1.5,6.5 4.5,9.5 10.5,3" stroke="var(--accent)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
-      </label>
-      <span class="module-num">B1</span>
-      <div class="module-title-group">
-        <div class="module-title">Attention internals &amp; KV cache</div>
-        <div class="module-sub">Self-attention, multi-head, KV cache mechanics, context window management</div>
-      </div>
-      <div class="module-tags"><span class="tag tag-week">internals</span><span class="tag tag-week">~25 hrs</span></div>
-      <div class="expand-icon">+</div>
+  <!-- Certification -->
+  <div class="phase">
+    <div class="phase-header cert-phase-header">
+      <span class="phase-num">CERTIFICATION</span>
+      <span class="phase-title">Cloud GenAI Engineer</span>
+      <span class="phase-weeks">Weeks 14–15</span>
     </div>
-    <div class="module-detail">
-      <div class="detail-grid">
-        <div>
-          <div class="detail-col-label">What you'll learn</div>
-          <ul class="detail-list">
-            <li>Self-attention mechanism from scratch (numpy)</li>
-            <li>Multi-head attention — why multiple heads</li>
-            <li>KV cache: what it stores, why it speeds up generation</li>
-            <li>KV cache memory footprint calculations</li>
-            <li>Context window management strategies</li>
-            <li>Sliding window attention for long contexts</li>
-            <li>Flash attention — IO-aware exact attention</li>
-            <li>RoPE positional encodings</li>
-          </ul>
+
+    <div class="module cert-item" id="mod-cap-cert">
+      <div class="module-header" onclick="toggleModule('mod-cap-cert')">
+        <label class="check-wrap" onclick="event.stopPropagation()">
+          <input type="checkbox" onchange="toggleDone('mod-cap-cert',this.checked,'cap')">
+          <div class="check-box"><svg class="check-icon" viewBox="0 0 12 12" fill="none"><polyline points="1.5,6.5 4.5,9.5 10.5,3" stroke="var(--accent)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        </label>
+        <span class="module-num" style="color:var(--teal)">★</span>
+        <div class="module-title-group">
+          <div class="module-title">Google Cloud GenAI Engineer — exam &amp; certification</div>
+          <div class="module-sub">2-week dedicated prep sprint · sit the exam · earn the credential</div>
         </div>
-        <div>
-          <div class="detail-col-label">Notebooks</div>
-          <ul class="detail-list">
-            <li>01_attention_from_scratch.ipynb</li>
-            <li>02_kv_cache_mechanics.ipynb</li>
-            <li>03_context_window_management.ipynb</li>
-            <li>04_flash_attention.ipynb</li>
-          </ul>
+        <div class="module-tags"><span class="tag tag-cert">official exam</span><span class="tag tag-week">~$200 USD</span><span class="tag tag-week">120 mins</span></div>
+        <div class="expand-icon">+</div>
+      </div>
+      <div class="module-detail">
+        <div class="detail-col-label" style="margin-bottom:.6rem">Exam domains covered</div>
+        <div class="exam-domains">
+          <span class="domain-pill">GenAI fundamentals</span>
+          <span class="domain-pill">Gemini API &amp; prompting</span>
+          <span class="domain-pill">RAG &amp; grounding</span>
+          <span class="domain-pill">Multi-agent systems</span>
+          <span class="domain-pill">Vertex AI services</span>
+          <span class="domain-pill">Model evaluation</span>
+          <span class="domain-pill">Responsible AI</span>
+          <span class="domain-pill">GCP infra for AI</span>
+          <span class="domain-pill">MLOps &amp; deployment</span>
+          <span class="domain-pill">Cost optimisation</span>
+        </div>
+        <div class="prep-grid">
+          <div class="prep-card"><div class="prep-card-label">Format</div><div class="prep-card-val">Multiple choice + multi-select. No coding on the day.</div></div>
+          <div class="prep-card"><div class="prep-card-label">Duration</div><div class="prep-card-val">120 minutes. Online proctored or test centre.</div></div>
+          <div class="prep-card"><div class="prep-card-label">Cost</div><div class="prep-card-val">~$200 USD. One free retake if needed.</div></div>
+          <div class="prep-card"><div class="prep-card-label">Prep path</div><div class="prep-card-val">Google Cloud Skills Boost + practice tests.</div></div>
+          <div class="prep-card"><div class="prep-card-label">Validity</div><div class="prep-card-val">2 years. Renewal by recertification.</div></div>
+          <div class="prep-card"><div class="prep-card-label">Register</div><div class="prep-card-val"><a href="https://cloud.google.com/learn/certification" target="_blank" style="color:var(--teal);text-decoration:none">cloud.google.com/certification ↗</a></div></div>
+        </div>
+        <div class="cert-achievement">
+          <div class="cert-icon-wrap">★</div>
+          <div>
+            <div class="cert-ach-title">Google Cloud Certified — Professional GenAI Engineer</div>
+            <div class="cert-ach-desc">By this phase every exam domain maps to something you've built and deployed. Add the badge to LinkedIn and the GitHub Pages portfolio.</div>
+          </div>
         </div>
       </div>
     </div>
   </div>
 
-  <div class="module c2-item" id="mod-c2-06">
-    <div class="module-header" onclick="toggleModule('mod-c2-06')">
-      <label class="check-wrap" onclick="event.stopPropagation()">
-        <input type="checkbox" onchange="toggleDone('mod-c2-06',this.checked,'c2')">
-        <div class="check-box"><svg class="check-icon" viewBox="0 0 12 12" fill="none"><polyline points="1.5,6.5 4.5,9.5 10.5,3" stroke="var(--accent)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
-      </label>
-      <span class="module-num">B2</span>
-      <div class="module-title-group">
-        <div class="module-title">Quantisation deep dive</div>
-        <div class="module-sub">INT8, INT4, GPTQ, AWQ, GGUF quantisation formats and trade-offs</div>
-      </div>
-      <div class="module-tags"><span class="tag tag-week">internals</span><span class="tag tag-local">GGUF</span><span class="tag tag-week">~20 hrs</span></div>
-      <div class="expand-icon">+</div>
-    </div>
-    <div class="module-detail">
-      <div class="detail-grid">
-        <div>
-      
-    </div>
-    </div>
-  </div>
+  </main>
+</div><!-- end tab-capstone -->
 
-  <div class="module c2-item" id="mod-c2-07">
-    <div class="module-header" onclick="toggleModule('mod-c2-07')">
-      <label class="check-wrap" onclick="event.stopPropagation()">
-        <input type="checkbox" onchange="toggleDone('mod-c2-07',this.checked,'c2')">
-        <div class="check-box"><svg class="check-icon" viewBox="0 0 12 12" fill="none"><polyline points="1.5,6.5 4.5,9.5 10.5,3" stroke="var(--accent)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
-      </label>
-      <span class="module-num">B3</span>
-      <div class="module-title-group">
-        <div class="module-title">Inference optimisation techniques</div>
-        <div class="module-sub">Speculative decoding, continuous batching, PagedAttention, throughput tuning</div>
-      </div>
-      <div class="module-tags"><span class="tag tag-week">internals</span><span class="tag tag-local">vLLM</span><span class="tag tag-week">~22 hrs</span></div>
-      <div class="expand-icon">+</div>
-    </div>
-    <div class="module-detail">
-      <div class="detail-grid">
-        <div>
-          <div class="detail-col-label">What you'll learn</div>
-          <ul class="detail-list">
-            <li>Speculative decoding — draft model + verifier</li>
-            <li>Continuous batching — why it beats static batching</li>
-            <li>PagedAttention — virtual memory for KV cache</li>
-            <li>Tensor parallelism and pipeline parallelism</li>
-            <li>Prefill vs decode phase optimisation</li>
-            <li>Throughput vs latency trade-offs</li>
-            <li>Benchmarking with vLLM benchmark tools</li>
-          </ul>
-        </div>
-        <div>
-          <div class="detail-col-label">Notebooks</div>
-          <ul class="detail-list">
-            <li>01_speculative_decoding.ipynb</li>
-            <li>02_continuous_batching.ipynb</li>
-            <li>03_paged_attention_deep_dive.ipynb</li>
-            <li>04_throughput_benchmarking.ipynb</li>
-          </ul>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <div class="module c2-item" id="mod-c2-08">
-    <div class="module-header" onclick="toggleModule('mod-c2-08')">
-      <label class="check-wrap" onclick="event.stopPropagation()">
-        <input type="checkbox" onchange="toggleDone('mod-c2-08',this.checked,'c2')">
-        <div class="check-box"><svg class="check-icon" viewBox="0 0 12 12" fill="none"><polyline points="1.5,6.5 4.5,9.5 10.5,3" stroke="var(--accent)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
-      </label>
-      <span class="module-num">B4</span>
-      <div class="module-title-group">
-        <div class="module-title">Capstone upgrade — local model swap</div>
-        <div class="module-sub">Replace Gemini with local vLLM in both capstone projects, benchmark cost vs quality</div>
-      </div>
-      <div class="module-tags"><span class="tag tag-proj">capstone upgrade</span><span class="tag tag-local">vLLM</span><span class="tag tag-week">~20 hrs</span></div>
-      <div class="expand-icon">+</div>
-    </div>
-    <div class="module-detail">
-      <div class="detail-grid">
-        <div>
-          <div class="detail-col-label">What you'll build</div>
-          <ul class="detail-list">
-            <li>Model abstraction layer — swap backend with config</li>
-            <li>vLLM server deployed on Cloud Run GPU instance</li>
-            <li>Trade Research Assistant on local Llama 3</li>
-            <li>Earnings Analyser on local Mistral</li>
-            <li>Cost comparison: Gemini vs local</li>
-            <li>Quality benchmark: outputs side by side</li>
-          </ul>
-        </div>
-        <div>
-          <div class="detail-col-label">Expected outcomes</div>
-          <ul class="detail-list">
-            <li>10x cost reduction for Flash-tier tasks</li>
-            <li>Full data privacy — no data leaves your infra</li>
-            <li>Latency comparison documented</li>
-            <li>GitHub Pages updated with local model demo</li>
-          </ul>
-        </div>
-      </div>
-      <div class="c2-note">
-        <div class="c2-note-label">Course 2 capstone</div>
-        <div class="c2-note-text">Two production systems running on local models, fully understood from the token up. The model abstraction layer is a reusable pattern for any future project.</div>
-      </div>
-    </div>
-  </div>
-
-</div><!-- end track B phase -->
-</main>
-</div><!-- end course-c2 -->
 
 <footer class="footer">
-  <span class="footer-note" id="footer-note">Progress saved in browser · last updated <span id="last-updated">—</span></span>
-  <button class="reset-btn" onclick="resetAll()">reset all progress</button>
+  <span class="footer-note">
+    Progress stored in browser SQLite
+    <span id="unsaved-indicator" style="display:none;color:var(--amber);margin-left:8px">· unsaved changes</span>
+  </span>
+  <div style="display:flex;gap:8px;align-items:center">
+    <button class="reset-btn" onclick="clearAll()">Clear all</button>
+    <button class="save-btn" id="save-btn" onclick="saveAll()">Save Progress</button>
+  </div>
 </footer>
 
-<script>
-// ── Config — update API_BASE after deploying to Cloud Run ──────────────────
-const API_BASE    = 'https://YOUR-CLOUD-RUN-URL';
-const STORAGE_KEY = 'ai_tracker_v1';
-const TOTALS = { c1: 12, c2: 8 };
-
-let authToken   = localStorage.getItem('auth_token') || null;
-let currentUser = null;
-
-// ── Auth helpers ──────────────────────────────────────────────────────────
-function getHeaders() {
-  const h = { 'Content-Type': 'application/json' };
-  if (authToken) h['Authorization'] = `Bearer ${authToken}`;
-  return h;
-}
-function setSync(state) {
-  const el = document.getElementById('sync-indicator');
-  if (state === 'syncing') { el.textContent = '↑ syncing…'; el.className = 'sync-indicator syncing'; }
-  else if (state === 'synced') { el.textContent = '✓ synced'; el.className = 'sync-indicator synced'; setTimeout(() => { el.textContent=''; el.className='sync-indicator'; }, 2000); }
-  else { el.textContent=''; el.className='sync-indicator'; }
-}
-
-// ── Google OAuth ──────────────────────────────────────────────────────────
-document.getElementById('google-sign-in-btn').href = `${API_BASE}/auth/login`;
-
-async function handleAuthAction() {
-  if (authToken) {
-    authToken=null; currentUser=null; localStorage.removeItem('auth_token');
-    updateAuthUI(null);
-  } else { document.getElementById('login-overlay').classList.add('visible'); }
-}
-function skipLogin() { document.getElementById('login-overlay').classList.remove('visible'); }
-
-function updateAuthUI(user) {
-  const s=document.getElementById('auth-status'), b=document.getElementById('auth-action-btn'), f=document.getElementById('footer-note');
-  if (user) {
-    s.innerHTML=`<img class="user-avatar" src="${user.picture||''}" alt=""><span class="user-name">${user.name}</span><span style="color:var(--muted2)">${user.email}</span>`;
-    b.textContent='Sign out'; b.className='auth-btn';
-    f.textContent=`Synced to database · signed in as ${user.email}`;
-  } else {
-    s.innerHTML=`<span style="color:var(--muted2)">Not signed in — progress saved locally only</span>`;
-    b.textContent='Sign in with Google'; b.className='auth-btn sign-in';
-    f.textContent='Progress saved locally · sign in to sync across devices';
-  }
-}
-
-async function handleOAuthCallback() {
-  const params=new URLSearchParams(window.location.search);
-  const token=params.get('token');
-  if (!token) return;
-  authToken=token; localStorage.setItem('auth_token',token);
-  window.history.replaceState({},\'\',window.location.pathname);
-  await loadUserAndSync();
-}
-
-async function loadUserAndSync() {
-  if (!authToken) return;
-  try {
-    const r=await fetch(`${API_BASE}/auth/me`,{headers:getHeaders()});
-    if (!r.ok){authToken=null;localStorage.removeItem('auth_token');return;}
-    currentUser=await r.json(); updateAuthUI(currentUser); await syncToServer();
-  } catch(e){console.warn('Auth check failed:',e);}
-}
-
-// ── Local storage ──────────────────────────────────────────────────────────
-function loadLocal(){try{return JSON.parse(localStorage.getItem(STORAGE_KEY)||'{}');}catch{return {};}}
-function saveLocal(d){localStorage.setItem(STORAGE_KEY,JSON.stringify(d));}
-
-// ── Server sync ────────────────────────────────────────────────────────────
-async function syncToServer(){
-  if (!authToken) return;
-  setSync('syncing');
-  try {
-    const r=await fetch(`${API_BASE}/progress`,{headers:getHeaders()});
-    if (!r.ok) throw new Error();
-    const serverData=await r.json();
-    const local=loadLocal(); const merged={...local};
-    for (const item of serverData.progress) merged[item.module_id]=item.completed;
-    saveLocal(merged); applyProgress(merged);
-    const serverIds=new Set(serverData.progress.map(p=>p.module_id));
-    const toSync=Object.entries(merged).filter(([id])=>!serverIds.has(id)).map(([id,completed])=>({module_id:id,course:id.includes('c2')?'c2':'c1',completed}));
-    if (toSync.length>0) await fetch(`${API_BASE}/progress/bulk`,{method:'POST',headers:getHeaders(),body:JSON.stringify(toSync)});
-    setSync('synced');
-  } catch(e){console.warn('Sync failed:',e);setSync('');}
-}
-
-async function pushProgress(moduleId,completed,course){
-  if (!authToken) return;
-  setSync('syncing');
-  try {
-    await fetch(`${API_BASE}/progress`,{method:'POST',headers:getHeaders(),body:JSON.stringify({module_id:moduleId,course,completed})});
-    setSync('synced');
-  } catch(e){console.warn('Push failed:',e);setSync('');}
-}
-
-// ── UI ──────────────────────────────────────────────────────────────────────
-function applyProgress(data){
-  document.querySelectorAll('.module').forEach(mod=>{
-    const checked=!!data[mod.id]; mod.classList.toggle('completed',checked);
-    const cb=mod.querySelector('input[type="checkbox"]'); if(cb) cb.checked=checked;
-  });
-  updateProgress('c1'); updateProgress('c2');
-}
-function updateProgress(course){
-  const data=loadLocal();
-  const done=Object.entries(data).filter(([k,v])=>k.startsWith('mod-'+course+'-')&&v).length;
-  document.getElementById('prog-fill-'+course).style.width=Math.round(done/TOTALS[course]*100)+'%';
-  document.getElementById('prog-done-'+course).textContent=done;
-}
-function toggleDone(id,checked,course){
-  const data=loadLocal(); data[id]=checked; saveLocal(data);
-  document.getElementById(id).classList.toggle('completed',checked);
-  updateProgress(course); pushProgress(id,checked,course);
-}
-function toggleModule(id){document.getElementById(id).classList.toggle('open');}
-function switchCourse(id){
-  document.querySelectorAll('.course-tab').forEach((t,i)=>t.classList.toggle('active',['c1','c2'][i]===id));
-  document.querySelectorAll('.course-panel').forEach(p=>p.classList.remove('active'));
-  document.getElementById('course-'+id).classList.add('active');
-}
-function resetAll(){
-  if (!confirm('Reset all progress for both courses?')) return;
-  localStorage.removeItem(STORAGE_KEY);
-  document.querySelectorAll('.module').forEach(m=>{
-    m.classList.remove('completed','open');
-    const cb=m.querySelector('input[type="checkbox"]'); if(cb) cb.checked=false;
-  });
-  updateProgress('c1'); updateProgress('c2');
-}
-async function init(){
-  applyProgress(loadLocal());
-  await handleOAuthCallback();
-  if (authToken && !currentUser) await loadUserAndSync();
-  else if (!authToken){
-    const hasLocal=Object.keys(loadLocal()).length>0;
-    if(!hasLocal) document.getElementById('login-overlay').classList.add('visible');
-  }
-}
-init();
-</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/sql.js/1.10.3/sql-wasm.js"></script>
+<script type="module" src="./dist/index.js"></script>
 </body>
 </html>

@@ -1,0 +1,23 @@
+# Minimal pyproject.toml — metadata only (not used for dependency management)
+
+[project]
+name = "ai-learning-tracker"
+version = "0.0.0"
+description = "Personal AI training progress tracker — GitHub Pages frontend + FastAPI backend"
+readme = "README.md"
+requires-python = ">=3.11"
+license = { text = "MIT" }
+authors = [ { name = "Mrinmoy Bhuyan" } ]
+keywords = ["fastapi", "neon", "cloud-run", "github-pages"]
+
+
+[build-system]
+requires = ["setuptools>=61.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[tool.black]
+line-length = 88
+target-version = ["py311"]
+
+[tool.isort]
+profile = "black"

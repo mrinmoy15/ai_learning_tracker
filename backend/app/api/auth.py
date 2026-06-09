@@ -38,7 +38,7 @@ async def login():
     return RedirectResponse(f"{GOOGLE_AUTH_URL}?{query}")
 
 
-@router.get("/callback", response_model=TokenResponse)
+@router.get("/callback")
 async def callback(code: str, db: AsyncSession = Depends(get_db)):
     """Exchange Google auth code for tokens, upsert user, return JWT."""
 
@@ -85,15 +85,9 @@ async def callback(code: str, db: AsyncSession = Depends(get_db)):
     await db.commit()
     await db.refresh(user)
 
-    # 4. Issue JWT
+    # 4. Issue JWT and redirect to frontend
     token = create_access_token(user.id, user.email)
-    return TokenResponse(
-        access_token=token,
-        user=UserOut(
-            id=user.id, email=user.email,
-            name=user.name, picture=user.picture,
-        ),
-    )
+    return RedirectResponse(f"{settings.frontend_url}?token={token}")
 
 
 @router.get("/me", response_model=UserOut)

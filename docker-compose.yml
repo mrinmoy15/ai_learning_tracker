@@ -1,43 +1,6 @@
-version: "3.9"
-
 services:
-
-  # ── Local PostgreSQL (mirrors Neon in dev) ──────────────────────────────────
-  db:
-    image: postgres:16-alpine
-    environment:
-      POSTGRES_USER:     tracker
-      POSTGRES_PASSWORD: tracker
-      POSTGRES_DB:       ai_tracker
-    ports:
-      - "5432:5432"
-    volumes:
-      - pgdata:/var/lib/postgresql/data
-    healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U tracker -d ai_tracker"]
-      interval: 5s
-      timeout: 5s
-      retries: 5
-
-  # ── FastAPI backend ─────────────────────────────────────────────────────────
-  api:
+  frontend:
     build:
-      context: ./backend
-      target: runtime
+      context: ./frontend
     ports:
-      - "8080:8080"
-    env_file:
-      - ./backend/.env.local        # local dev env (see .env.example)
-    depends_on:
-      db:
-        condition: service_healthy
-    volumes:
-      - ./backend/app:/app/app      # hot reload in dev
-    command: >
-      uvicorn app.main:app
-      --host 0.0.0.0
-      --port 8080
-      --reload
-
-volumes:
-  pgdata:
+      - "3000:80"

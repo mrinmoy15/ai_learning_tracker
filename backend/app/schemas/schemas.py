@@ -19,12 +19,6 @@ class UserOut(BaseModel):
 
 # ── Progress ──────────────────────────────────────────────────────────────────
 
-class ProgressItem(BaseModel):
-    module_id: str
-    course: str
-    completed: bool
-
-
 class ProgressUpsert(BaseModel):
     module_id: str
     course: str
@@ -44,7 +38,5 @@ class ProgressOut(BaseModel):
 
 class AllProgressOut(BaseModel):
     progress: list[ProgressOut]
-    total_c1: int
-    total_c2: int
-    done_c1: int
-    done_c2: int
+    totals: dict[str, int]   # e.g. {"c1": 8, "c2": 6, "c3": 8, "cap": 4}
+    done: dict[str, int]     # e.g. {"c1": 3, "c2": 0, "c3": 0, "cap": 0}
